@@ -1,10 +1,10 @@
-# SwachhStations_BE
+# Backend
 
 ## Installation
 
 1. **Clone the repository**
     ```bash
-    git clone https://github.com/s2pl/SwachhStations_BE.git -b <<branch_name>>
+    git clone https://github.com/Shuru63/RailwayRating.git -b <<branch_name>>
     ```
 
 2. **Setup virtual environment (Use Python 3.9)**
@@ -106,7 +106,7 @@
     ```
 
 
-# Frontend SWACHHSTATIONS
+# Frontend 
 
 
 ## Getting Started with Create React App
