@@ -1,0 +1,28 @@
+{% load custom %}
+{% load static %}
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+{% block body %}
+    <!-- Content for page 1 -->
+    {% include 'front/pdf/daily_buyers_rating_sheet.html' %}
+    <!-- Content for page 1 -->
+    <!-- Content for page 2? -->
+    <!-- Content for page 2? -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 13 -->
+    {% include 'front/pdf/pdf_p13.html' %}
+    <!-- Content for page 13 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 12 -->
+    {% include 'front/pdf/pdf_p12.html' %}
+    <!-- Content for page 12 -->
+    {% if showimages %}
+        {% include 'front/pdf/pdf_image.html' %}
+    {% endif %}
+    <script type="text/javascript" src="{% static 'assets/js/script2.js' %}"></script>
+{% endblock %}

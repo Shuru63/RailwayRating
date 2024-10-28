@@ -1,0 +1,26 @@
+{
+    "task_1": {
+        "station": "FUT",
+        "task_id": 1,
+        "task_type": "A",
+        "service_type": "Indoor Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of All office area 2 nd Class Waiting Hall Toilet & Urinal Area",
+        "cleaning_cycle_days": "730",
+        "cleaning_cycle_type": "D",
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    },
+    "task_2": {
+        "station": "FUT",
+        "task_id": 2,
+        "task_type": "A",
+        "service_type": "Outdoor Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of Drain Water booth (PF No. 1 to 7) Cleaning flat surface of FOB & All Outdoor Area (Remaining) ",
+        "cleaning_cycle_days": "365",
+        "cleaning_cycle_type": "A", 
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    }
+}

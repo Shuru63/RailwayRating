@@ -1,0 +1,26 @@
+{
+    "task_1": {
+        "station": "JHD",
+        "task_id": 1,
+        "task_type": "A",
+        "service_type": "Indoor Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of Building Area ",
+        "cleaning_cycle_days": "730",
+        "cleaning_cycle_type": "D",
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    },
+    "task_2": {
+        "station": "JHD",
+        "task_id": 2,
+        "task_type": "A",
+        "service_type": "Outdoor  Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of PF -1 , PF -2 , Circulating Area , Track area , LC gate area",
+        "cleaning_cycle_days": "730",
+        "cleaning_cycle_type": "D", 
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    }
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Daily Summary BDE</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<style>
+    .page {
+        page-break-after: always;
+        page-break-inside: avoid;
+    }
+</style>
+<body>
+    <div class="page">
+        {% include "front/pdf/bde_daily_buyers_rating.html" %}
+    </div>
+
+    <!-- PASSENGER FEEDBACK FORM FOR STATION CLEANING -->
+    {% if daily_report_for_bde %}
+        <div class="page">
+            {% if passenger_feedback_data %}
+                {% for feedback in passenger_feedback_data %}
+                    {% with forloop.counter as page_count %}
+                        {% include 'front/pdf/pdf_p11.html' %}                       
+                    {% endwith %}
+                {% endfor %}
+            {% elif inspection_feedback_data %}
+                {% include 'front/pdf/inspection_feedback.html' %}
+            {% else %}
+                {% include 'front/pdf/pdf_p11.html' %}    
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <!-- DAILY SHEET OF INSPECTION/USER FEEDBACK REGISTER -->
+    <div class="page">
+        {% include "front/pdf/pdf_p13.html" %}
+    </div>
+
+    <!-- DAILY EVALUATION SHEET FOR DEDUCTION PURPOSE -->
+    <div class="page">
+        {% include "front/pdf/pdf_p12.html" %}
+    </div>
+
+</body>
+
+</html>

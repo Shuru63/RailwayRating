@@ -1,0 +1,11 @@
+{% autoescape off %}
+Hello Sir,
+
+Complain for {{task.task_description}} by {{by}}. 
+Details: {{feedback}}
+
+Sincerely,
+{{user.first_name}}
+
+ - Powered by Sarva Suvidhaen Pvt Ltd.
+{% endautoescape %}

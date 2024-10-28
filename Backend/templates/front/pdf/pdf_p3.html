@@ -1,0 +1,105 @@
+{% load custom %}
+{% block body %}
+    <head>
+        <style>
+    .bg-dark text-white{
+      font-size: 15px !important; 
+    }
+    .table table-bordered{
+      border-spacing: 0; 
+      border-collapse: collapse;
+    }
+    .table static-value{
+      width: 10%;
+  }
+  .table-values{
+   color: #0040ff;
+  }
+        </style>
+    </head>
+    <div>
+        <center>
+            <h1>INSPECTION/USER FEEDBACK REGISTER</h1>
+        </center>
+        <center>
+            <h1>(FOR {{ month_name }} MONTH)</h1>
+        </center>
+        <table style="width: 100%">
+            <tr style="width: 100%">
+                <td style="width: 15%">
+                    <b>Name of work:</b>
+                </td>
+                <td style="width: 85%">
+                    <b>{{ station.name_of_work }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Cleaning Contract by:</b>
+                </td>
+                <td>
+                    <b> {{ station.contract_by }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Contract No.:</b>
+                </td>
+                <td>
+                    <b>{{ station.contract_no }}</b>
+                </td>
+            </tr>
+        </table>
+        <center>
+            <h2>Inspection/User rating Register</h2>
+        </center>
+        <table id="table" cellspacing="0" width="100%" align="center" border=".5">
+            <thead class="bg-dark text-white">
+                <tr style="padding: 7px"  class="table static-value">
+                    <th scope="col" rowspan="1">SI.NO</th>
+                    <th scope="col" rowspan="1">Date of Inspection/User rating</th>
+                    <th scope="col" rowspan="1">Remarks by Inspecting official/User</th>
+                    <th scope="col" rowspan="1">Rating (Excellent, Ok & poor)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for value in num_days|range %}
+                    <tr style="padding: 1px">
+                        <td class="table static-value">
+                            <center>{{ forloop.counter }}</center>
+                        </td>
+                        <td class="table-values">
+                            <center>{{ forloop.counter }}-{{ month }}-{{ year }}</center>
+                        </td>
+                        <td class="table-values">
+                            <center>{{ inspection_feedback_arr_remarks|index:forloop.counter }}</center>
+                        </td>
+                        <td class="table-values">
+                            <center>{{ inspection_feedback_arr_rating|index:forloop.counter }}</center>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <table style="margin-top: 100px">
+            <tr>
+                <td>
+                    <h2>Signature of Concerning /CHI/SSE/JE</h2>
+                </td>
+                <td>
+                    <h2>Signature of Contractor/Authorized Signatory of contractor</h2>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2 style="margin-left: 40px">(Buyer Representative)</h2>
+                </td>
+                <td>
+                    <h2>
+                        <center>(User Representative)</center>
+                    </h2>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}

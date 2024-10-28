@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+{% load custom %}
+{% load static %}
+{% block body %}
+    <style>
+  .container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .active-pdf {
+    background-color: grey !important;
+  }
+  #message-box {
+    font-size: 20px;
+    color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .left-buttons,
+  .right-buttons {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .button-container {
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .button {
+    font-size: 20px;
+    padding: 8px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 18px;
+  }
+
+  input {
+    border-radius: 10px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .button {
+      font-size: 17px;
+      padding: 7px;
+    }
+  }
+    </style>
+    {% for message in messages %}
+        <div id="alert" class="alert alert-{{ message.tags }}">{{ message }}</div>
+        <script type="text/javascript">
+  setTimeout(function () {
+    $('#alert').alert('close');
+  }, 4000);
+        </script>
+    {% endfor %}
+    <div style="display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-evenly">
+        <div class="second-div">
+            <form id="common-form"
+                  action="{% url 'getpdf' %}"
+                  method="POST"
+                  enctype="multipart/form-data"
+                  style="margin-bottom: 8px">
+                {% csrf_token %}
+                <input type="date"
+                       name="date"
+                       id="common-date-input"
+                       required
+                       style="font-size: 18px;
+                              padding: 10px;
+                              margin: 10px auto;
+                              display: flex;
+                              justify-content: center;
+                              width: 60%" />
+                <input type="hidden"
+                       name="unique_variable"
+                       id="unique-variable-input"
+                       value="" />
+                <p id="message-box"
+                   style="text-align: center;
+                          padding: 6px;
+                          align-items: center;
+                          background: #969696"
+                   hidden></p>
+                <div class="container">
+                    <div class="left-buttons">
+                        <!-- Download PDF -->
+                        <div class="button-container">
+                            <button type="submit"
+                                    class="button"
+                                    onclick="setAction('get_pre_daily_feedback', 'download', 'GET')"
+                                    style="background-color: rgb(22, 84, 123)">Review Daily Passenger Feedback</button>
+                            {% if device != 'pc' %}
+                                <button type="submit"
+                                        class="button"
+                                        onclick="setAction('signature_daily_Evaluation', 'download', 'GET')"
+                                        style="background-color: rgb(22, 84, 123)">Daily Evaluation Sheet</button>
+                            {% endif %}
+                            <button type="submit"
+                                    class="button"
+                                    onclick="setAction('getpdf_sp', 'downloadpdf', 'GET')"
+                                    style="background-color: rgb(57, 156, 57)">
+                                Download Daily Buyer's Rating Sheet
+                            </button>
+                            <button type="submit"
+                                    class="button"
+                                    onclick="setAction('getpdf_sum_daily', 'downloadpdf', 'GET')"
+                                    style="background-color: rgb(36, 194, 128)">Download Daily Summary</button>
+                            <button type="submit"
+                                    class="button"
+                                    onclick="setAction('getpdf_sum_daily_report', 'downloadpdf', 'GET')"
+                                    style="background-color: rgb(36, 194, 128)">Download Daily report</button>
+                            <button type="submit"
+                                    class="button"
+                                    onclick="setAction('getpdf_sum_monthly_downlaod', 'downloadpdf', 'GET')"
+                                    style="background-color: rgb(49, 190, 131)">Download Monthly Summary</button>
+                            <button type="submit"
+                                    class="button"
+                                    onclick="setAction('getpdf_sum_daily_images', 'download', 'GET')"
+                                    style="background-color: darkgreen"
+                                    {% comment %}
+                                    style="background-color: gray"
+                                    disabled
+                                    {% endcomment %}>Mail Daily Summary (images)</button>
+                            <button type="submit"
+                                    class="button"
+                                    onclick="setAction('getpdf_sum_monthly', 'downloadpdf', 'GET')"
+                                    style="background-color: rgb(49, 190, 131)"
+                                    {% comment %}
+                                    style="background-color: gray"
+                                    disabled
+                                    {% endcomment %}>Mail Monthly Summary</button>
+                            <button type="submit"
+                                    class="button"
+                                    onclick="setAction('getpdf', 'downloadpdf', 'GET')"
+                                    style="background-color: rgb(36, 194, 128)"
+                                    {% comment %}
+                                    disabled
+                                    style="background-color: gray"
+                                    {% endcomment %}>Mail Monthly Details</button>
+                            <button type="submit"
+                                    class="button"
+                                    onclick="setAction('getpdf', 'download', 'GET')"
+                                    style="background-color: darkgreen"
+                                    {% comment %}
+                                    style="background-color: gray"
+                                    disabled
+                                    {% endcomment %}>Mail Monthly Details (images)</button>
+                        </div>
+                    </div>
+                    <div class="right-buttons">
+                        <!-- Review PDF -->
+                        {% if device == 'pc' %}
+                            <div class="button-container">
+                                <button type="submit"
+                                        class="button"
+                                        onclick="setAction('signature_daily_Evaluation', 'download', 'GET')"
+                                        style="background-color: rgb(22, 84, 123)">Daily Evaluation Sheet</button>
+                                <button type="submit"
+                                        class="button"
+                                        onclick="setAction('getpdf_sp', 'reviewpdf', 'POST')"
+                                        style="background-color: rgb(57, 156, 57)">
+                                    Review Daily Buyer's Rating Sheet
+                                </button>
+                                <button type="submit"
+                                        class="button"
+                                        onclick="setAction('getpdf_sum_daily', 'reviewpdf', 'POST')"
+                                        style="background-color: rgb(36, 194, 128)">Review Daily Summary</button>
+                                <button type="submit"
+                                        class="button"
+                                        onclick="setAction('getpdf_sum_daily_report', 'reviewpdf', 'POST')"
+                                        style="background-color: rgb(36, 194, 128)">Review Daily report</button>
+                                <button type="submit"
+                                        class="button"
+                                        onclick="setAction('getpdf_sum_daily', 'review', 'POST')"
+                                        style="background-color: darkgreen">Review Daily Summary (images)</button>
+                                <button type="submit"
+                                        class="button"
+                                        onclick="setAction('getpdf_sum_monthly_downlaod', 'reviewpdf', 'POST')"
+                                        style="background-color: rgb(36, 194, 128)">Review Monthly Summary</button>
+                                <button type="submit"
+                                        class="button"
+                                        onclick="setAction('getpdf_sum_monthly_downlaod', 'reviewpdf', 'POST')"
+                                        style="background-color: rgb(36, 194, 128)">Review Monthly Summary</button>
+                                <button type="submit"
+                                        class="button"
+                                        onclick="setAction('getpdf', 'reviewpdf', 'POST')"
+                                        style="background-color: rgb(36, 194, 128)">Review Monthly Details</button>
+                                <button type="submit"
+                                        class="button"
+                                        onclick="setAction('getpdf', 'review', 'POST')"
+                                        style="background-color: darkgreen">Review Monthly Details (images)</button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </form>
+            <!-- JavaScript Logic -->
+            <script>
+      window.onload = function () {
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0');
+        let yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById('common-date-input').value = today;
+      };
+
+      function setAction(action, variable, method) {
+        const commonDateInput =
+          document.getElementById('common-date-input').value;
+        const commonForm = document.getElementById('common-form');
+        const uniqueVariableInput = document.getElementById(
+          'unique-variable-input'
+        );
+        uniqueVariableInput.value = variable;
+        commonForm.method = method;
+
+        const clickedButton = event.target;
+        clickedButton.disabled = true;
+        const startTime = new Date();
+
+        const dateValue = commonDateInput.value;
+
+        const encodedDate = encodeURIComponent(dateValue);
+
+        const urlWithDate = action + '?date=' + encodedDate;
+        commonForm.action = urlWithDate;
+
+        console.log("%%%%%%%%%%%%%%", encodedDate)
+
+        commonForm.submit();
+
+        message = document.getElementById('message-box');
+        message.hidden = false;
+        message.innerHTML = 'your file will be downloaded within few seconds';
+        if (method === 'POST') {
+          message.innerHTML = 'your file will be opened within few seconds';
+        } else {
+          message.innerHTML = 'your file will be downloaded within few seconds';
+        }
+        setTimeout(function () {
+          message.innerHTML = '';
+          clickedButton.disabled = false;
+          message.hidden = true;
+        }, 5000);
+      }
+
+      var btns = document.getElementsByClassName('button');
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener('click', function () {
+          var current = document.getElementsByClassName('active-pdf');
+
+          if (current.length > 0) {
+            current[0].className = current[0].className.replace(
+              ' active-pdf',
+              ''
+            );
+          }
+
+          this.className += ' active-pdf';
+        });
+      }
+            </script>
+        </div>
+    </div>
+{% endblock %}

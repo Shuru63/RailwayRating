@@ -1,0 +1,6 @@
+- id: rerun-each-deploy-script
+  execute-command: "/home/sarva/SwachhStations_BE/rerun-each-deploy-script.sh"
+  command-working-directory: "/home/sarva/SwachhStations_BE"
+- id: single-run-deploy-script
+  execute-command: "/home/sarva/SwachhStations_BE/single-run-deploy-script.sh"
+  command-working-directory: "/home/sarva/SwachhStations_BE"

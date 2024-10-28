@@ -1,0 +1,131 @@
+{% load custom %}
+{% block body %}
+    <head>
+        <style>
+    .table table-bordered {
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+    .bg-dark text-white {
+      font-size: 15px !important;
+    }
+    .table static-value {
+      width: 10%;
+    }
+    .table-values {
+      color: #0040ff;
+    }
+        </style>
+    </head>
+    <div>
+        <center>
+            <h1>
+                <u>MONTHLY BUYER'S EVALUATION SHEET</u>
+            </h1>
+        </center>
+        <table style="width: 100%">
+            <tr style="width: 100%">
+                <td style="width: 15%">
+                    <b>Name of work:</b>
+                </td>
+                <td style="width: 85%">
+                    <b>{{ station.name_of_work }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Cleaning Contract by:</b>
+                </td>
+                <td>
+                    <b> {{ station.contract_by }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Contract No.:</b>
+                </td>
+                <td>
+                    <b>{{ station.contract_no }}</b>
+                </td>
+            </tr>
+        </table>
+        <center>
+            <h2>Buyer's Average Rating</h2>
+        </center>
+        <h4 style="margin-left: 600px">Month</h4>
+        <table id="table"
+               class="table table-bordered"
+               cellspacing="0"
+               width="100%"
+               align="center"
+               border=".5"
+               cellpadding="3px">
+            <thead class="bg-dark text-white">
+                <tr>
+                    <th scope="col" rowspan="2">SI.NO</th>
+                    <th scope="col" rowspan="2">DATE</th>
+                    <th scope="col" rowspan="1">IV</th>
+                    <th scope="col" rowspan="1">V</th>
+                </tr>
+                <tr>
+                    <th>Daily Average rating date wise in %</th>
+                    <th>Weekly Average rating in %</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in monthly_data %}
+                    <tr>
+                        <td scope="col" rowspan="1" class="table static-value">
+                            <center>{{ forloop.counter }}</center>
+                        </td>
+                        <td scope="col" rowspan="1" class="table-values">
+                            <center>{{ data.date }}</center>
+                        </td>
+                        <td scope="col" rowspan="1" class="table-values">
+                            <center>{{ data.daily_buyers_avg_rating }}</center>
+                        </td>
+                        {% if data.weekly_avg_rating %}
+                            <td scope="col" rowspan="7" class="table-values">
+                                <center>{{ data.weekly_avg_rating }}</center>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="2" style="font-size: 10px">
+                        Buyer's average rating for the Month in %
+                        <br />
+                        = (Sum of % rating in
+                        column IV ÷ no. of
+                        <br />
+                        days)
+                    </td>
+                    <td scope="col" rowspan="1" class="table-values">
+                        <center>{{ monthly_avg_rating }}</center>
+                    </td>
+                    <td scope="col" rowspan="1"></td>
+                </tr>
+            </tbody>
+        </table>
+        <table style="margin-top: 50px">
+            <tr>
+                <td>
+                    <h2>Signature of Concerning /CHI/SSE/JE</h2>
+                </td>
+                <td>
+                    <h2>Signature of Contractor/Authorized Signatory of contractor</h2>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2 style="margin-left: 40px">(Buyer Representative)</h2>
+                </td>
+                <td>
+                    <h2>
+                        <center>(User Representative)</center>
+                    </h2>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}

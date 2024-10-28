@@ -1,0 +1,28 @@
+{% autoescape off %}
+Hello,
+
+Your request for the below user has been approved
+
+Mobile number: {{ phone }}
+Email: {{ email }}
+Password : {{ password }}
+Login as : {{ role }}
+{% if role != 'officer' or role != 'railway admin' %}
+Station : {{ station }}
+{% endif %}
+status: Approved
+
+click the link below to login to your account.
+
+Please visit 
+{{ protocol }}://{{domain}}
+
+or get the app from:
+{{ app_link }}
+
+If you did not make this request, you can simply ignore this email.
+
+Sincerely,
+The Website Team
+
+{% endautoescape %}

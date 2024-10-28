@@ -1,0 +1,59 @@
+{% load custom %}
+{% load static %}
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+{% block body %}
+    {% include 'front/pdf/pdf_p2.html' %}
+    <!-- Content for page 2 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 3 -->
+    {% include 'front/pdf/pdf_p3.html' %}
+    <!-- Content for page 3 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 4 -->
+    {% include 'front/pdf/pdf_p4.html' %}
+    <!-- Content for page 4 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 5 -->
+    {% include 'front/pdf/pdf_p5.html' %}
+    <!-- Content for page 5 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 6 -->
+    {% include 'front/pdf/pdf_p6.html' %}
+    <!-- Content for page 6 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 7-->
+    {% include 'front/pdf/pdf_p7.html' %}
+    <!-- Content for page 7 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 8 -->
+    {% include 'front/pdf/pdf_p8.html' %}
+    <!-- Content for page 8 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 9 -->
+    {% include 'front/pdf/pdf_p9.html' %}
+    <!-- Content for page 9 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 10 -->
+    {% include 'front/pdf/pdf_p10.html' %}
+    <!-- Content for page 10 -->
+    <script type="text/javascript" src="{% static 'assets/js/script2.js' %}"></script>
+{% endblock %}

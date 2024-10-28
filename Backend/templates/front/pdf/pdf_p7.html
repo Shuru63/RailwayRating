@@ -1,0 +1,230 @@
+{% load custom %}
+{% block body %}
+    <head>
+        <style>
+    .tr-block th{
+      font-size: x-large;
+    }
+    .table  table-bordered{
+      font-size:0.7 rem;
+      border-spacing: 0;
+       border-collapse: collapse; 
+       margin-top: 50px;
+    }
+    .bg-dark text-whitestyle{
+      font-size: 15px !important;
+    }
+    .td-block2{
+      font-size:large;
+    }
+    .table table-values{
+      font-size:large; 
+      color: #0040ff;
+    }
+    .table table-total{
+      padding: 1px; 
+      font-size: 13px;
+    }
+        </style>
+    </head>
+    <div>
+        <center>
+            <h2>
+                <u>WEEKLY PERFORMANCE EVALUATION SHEET </u>
+            </h2>
+        </center>
+        <table style="width: 100%">
+            <tr style="width: 100%">
+                <td style="width: 15%">
+                    <b>Name of work:</b>
+                </td>
+                <td style="width: 85%">
+                    <b>{{ station.name_of_work }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Cleaning Contract by:</b>
+                </td>
+                <td>
+                    <b> {{ station.contract_by }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Contract No.:</b>
+                </td>
+                <td>
+                    <b>{{ station.contract_no }}</b>
+                </td>
+            </tr>
+        </table>
+        <center style="margin-top: 16px; margin-bottom: 8px">
+            <b>Weekly Performance Evaluation</b>
+        </center>
+        <table id="table"
+               class="table table-bordered"
+               cellspacing="0"
+               width="100%"
+               align="center"
+               border=".5"
+               cellpadding="7px">
+            <thead class="bg-dark text-white">
+                <tr class="tr-block">
+                    <th scope="col" rowspan="0">Weekly Period</th>
+                    <th scope="col" rowspan="0">Performance Evaluation</th>
+                    <th scope="col" rowspan="0">Score Achieved</th>
+                    <th scope="col" rowspan="0">Weightage</th>
+                    <th scope="col" rowspan="0">Final Score</th>
+                    <th scope="col" rowspan="0">Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="2" style="text-align: center;">1-7th {{ month_name }}</td>
+                    <td class="td-block2">
+                        <center>Buyer's Evaluation</center>
+                    </td>
+                    <td class="table table-values">
+                        <center>{{ weekly_avg_buyers_rating.0 }}</center>
+                    </td>
+                    <td>
+                        <center style="font-size: 14px">80%</center>
+                    </td>
+                    <td class="table table-values">
+                        <center>{{ weekly_performance_data.0.rating }}</center>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="td-block2">
+                        <center>
+                            User/Inspection
+                            Feedback Evaluation
+                        </center>
+                    </td>
+                    <td>
+                        <center class="table table-values">{{ weekly_feedback_counts.0.avg_feedback }}</center>
+                    </td>
+                    <td>
+                        <center style="font-size: 14px">20%</center>
+                    </td>
+                    <td>
+                        <center class="table table-values">{{ weekly_performance_data.0.feedback }}</center>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="table table-total">
+                        <center>Total</center>
+                    </td>
+                    <td>
+                        <center class="table table-values">{{ weekly_performance_data.0.total }}</center>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table style="margin-top: 100px">
+            <tr>
+                <td>
+                    <h2>Signature of Concerning /CHI/SSE/JE</h2>
+                </td>
+                <td>
+                    <h2>Signature of Contractor/Authorized Signatory of contractor</h2>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2 style="margin-left: 40px">(Buyer Representative)</h2>
+                </td>
+                <td>
+                    <h2>
+                        <center>(User Representative)</center>
+                    </h2>
+                </td>
+            </tr>
+        </table>
+        <table id="table"
+               class="table table-bordered"
+               cellspacing="0"
+               width="100%"
+               align="center"
+               border=".5"
+               cellpadding="7px">
+            <thead class="bg-dark text-white">
+                <tr class="tr-block">
+                    <th scope="col" rowspan="0">Weekly Period</th>
+                    <th scope="col" rowspan="0">Performance Evaluation</th>
+                    <th scope="col" rowspan="0">Score Achieved</th>
+                    <th scope="col" rowspan="0">Weightage</th>
+                    <th scope="col" rowspan="0">Final Score</th>
+                    <th scope="col" rowspan="0">Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="2" style="text-align: center;">8-14th {{ month_name }}</td>
+                    <td class="td-block2">
+                        <center>Buyer's Evaluation</center>
+                    </td>
+                    <td class="table table-values">
+                        <center>{{ weekly_avg_buyers_rating.1 }}</center>
+                    </td>
+                    <td>
+                        <center style="font-size: 14px">80%</center>
+                    </td>
+                    <td class="table table-values">
+                        <center>{{ weekly_performance_data.1.rating }}</center>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="td-block2">
+                        <center>
+                            User/Inspection
+                            Feedback Evaluation
+                        </center>
+                    </td>
+                    <td>
+                        <center class="table table-values">{{ weekly_feedback_counts.1.avg_feedback }}</center>
+                    </td>
+                    <td>
+                        <center style="font-size: 14px">20%</center>
+                    </td>
+                    <td>
+                        <center class="table table-values">{{ weekly_performance_data.1.feedback }}</center>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="table table-total">
+                        <center>Total</center>
+                    </td>
+                    <td>
+                        <center class="table table-values">{{ weekly_performance_data.1.total }}</center>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table style="margin-top: 100px">
+            <tr>
+                <td>
+                    <h2>Signature of Concerning /CHI/SSE/JE</h2>
+                </td>
+                <td>
+                    <h2>Signature of Contractor/Authorized Signatory of contractor</h2>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2 style="margin-left: 40px">(Buyer Representative)</h2>
+                </td>
+                <td>
+                    <h2>
+                        <center>(User Representative)</center>
+                    </h2>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}

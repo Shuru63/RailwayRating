@@ -1,0 +1,10 @@
+{
+    "shift":{
+        "shift_id": "1",
+        "start_time": "10:00:00",
+        "end_time": "18:00:00",
+        "station": "RGD",
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    }
+}

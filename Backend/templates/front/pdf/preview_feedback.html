@@ -1,0 +1,17 @@
+{% load custom %}
+{% load static %}
+{% block body %}
+    <div>
+        <div>
+            {% if feedback_data %}
+                {% for feedback in feedback_data %}
+                    {% with forloop.counter as page_count %}
+                        {% include 'front/pdf/passenger_feedback.html' %}
+                    {% endwith %}
+                {% endfor %}
+            {% else %}
+                {% include 'front/pdf/passenger_feedback.html' %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,347 @@
+{% extends 'base.html' %}
+{% load custom %}
+{% load static %}
+{% block body %}
+    <head>
+        <style>
+    .EvaTable {
+      border-spacing: 0;
+      border-collapse: collapse;
+      margin-top: 28px; 
+      margin-bottom: 28px;
+      width: 100%;
+    }
+
+    .EvaTable thead tr th{
+        text-align: center;
+    }
+
+    .EvaTable tbody tr td{
+        text-align: center;
+    }
+
+    .evaluation-sheet-container{
+      margin-left: auto;
+      margin-right: auto;
+      width: 85%;
+      border-radius: 10px;
+      background-color: #ffffff;
+      padding: 15px;
+      margin-top: 10px;
+      margin-bottom: 40px;
+      min-width: 800px;
+    }
+
+    .evaluation-sheet-header{
+        width: 100%;
+        text-align: center;
+        font-weight: 600;
+        margin: 30px auto;
+    }
+
+    .evaluation-signature{
+        width: 100%;
+        margin: 50px 0px;
+    }
+
+    .evaluation-signature tr td{
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .verify-evaluation-btn{
+      border-radius: 5px;
+    }
+
+    .modal-inputs{
+      padding: 5px;
+      width: 70%;
+      border-radius: 5px;
+    }
+        </style>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    </head>
+    <div id="daily-evaluation-verification-modal"
+         class="modal"
+         tabindex="-1"
+         role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"
+                        style="font-size: 24px;
+                               text-transform: capitalize">Verify Daily Evaluation Sheet</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div id="email-div">
+                            <input placeholder="Enter Email" class="modal-inputs" id="email-input" />
+                            <button class="btn btn-primary verify-summary-btn" id="email-btn">verify Email</button>
+                        </div>
+                        <div id="otp-div">
+                            <input placeholder="Enter Otp" class="modal-inputs" id="otp-input" />
+                            <button class="btn btn-primary verify-summary-btn" id="otp-btn">Submit Otp</button>
+                        </div>
+                        <div>
+                            <p id="success-error"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="overflow-x: scroll; margin: 0px;">
+        <div class="evaluation-sheet-container">
+            <h4 class="evaluation-sheet-header">DAILY EVALUATION SHEET FOR DEDUCTION PURPOSE</h4>
+            <table id="table"
+                   class="EvaTable"
+                   align="center"
+                   border=".5"
+                   cellpadding="7px">
+                <thead class="">
+                    <tr>
+                        <th scope="col" rowspan="0" width="20%">Daily</th>
+                        <th scope="col" rowspan="0" width="40%">Performance Evaluation</th>
+                        <th scope="col" rowspan="0" width="10%">Score Achieved</th>
+                        <th scope="col" rowspan="0" width="10%">Weightage</th>
+                        <th scope="col" rowspan="0" width="10%">Final Score</th>
+                        <th scope="col" rowspan="0" width="10%">Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="2" style="text-align: center;">{{ formatted_date }}</td>
+                        <td>Buyer's Evolution</td>
+                        <td>{{ daily_buyers_eval }}</td>
+                        <td>80%</td>
+                        <td>{{ daily_buyers_eval_score }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            User/Inspection
+                            Feedbaack Evolution
+                        </td>
+                        <td>{{ feedback_total_daily }}</td>
+                        <td>20%</td>
+                        <td>{{ feedback_total_daily_score }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="padding: 1px; font-size: large">Total</td>
+                        <td>{{ total_daily_eval }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            {% if accepted_daily_rate == 0.0 %}
+                <p class="textp12">
+                    No daily accepted amount set for the station {{ station_name }}, set it to calculate the penalty.
+                </p>
+            {% else %}
+                {% if daily_penalty_applied == 0.0 %}
+                    <p class="textp12">
+                        <b>No deduction is applicable for overall score above 85% per day =</b> <span style="color: green;">No Penalty Applied</span>
+                    </p>
+                {% else %}
+                    <p class="textp12" style="margin-bottom: 76px; margin-top: 36px;">
+                        (i) Deduction @5 % of accepted rate per day (excluding GST) for overall
+                        score between 75% to 85% per day =
+                        {% if deduction_rate == 5 %}
+                            <span style="color: red;">{{ daily_penalty_applied }}</span>
+                            <br />
+                        {% else %}
+                            <span style="color: red; font-size: large;">X</span>
+                            <br />
+                        {% endif %}
+                        (ii) Deduction @7 % of accepted rate per day (excluding GST) for overall
+                        score between 65% to 75% per day =
+                        {% if deduction_rate == 7 %}
+                            <span style="color: red;">{{ daily_penalty_applied }}</span>
+                            <br />
+                        {% else %}
+                            <span style="color: red; font-size: large;">X</span>
+                            <br />
+                        {% endif %}
+                        (iii) Deduction @10 % of accepted rate per day (excluding GST) for overall
+                        score below 65% per day =
+                        {% if deduction_rate == 10 %}
+                            <span style="color: red;">{{ daily_penalty_applied }}</span>
+                            <br />
+                        {% else %}
+                            <span style="color: red; font-size: large;">X</span>
+                            <br />
+                        {% endif %}
+                        {% if deduction_rate != 5 and deduction_rate != 7 and deduction_rate != 10 %}
+                            No values for deduction rate and penalty along with daily accepted rate are provided.
+                        {% endif %}
+                    </p>
+                {% endif %}
+            {% endif %}
+            <table class="evaluation-signature">
+                <tr>
+                    <td>
+                        <h6>Signature of Concerning /CHI/SSE/JE</h6>
+                    </td>
+                    <td>
+                        <h6>Signature of Contractor/Authorized Signatory of contractor</h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h6 style="margin-left: 40px">(Buyer Representative)</h6>
+                    </td>
+                    <td>
+                        <h6>(User Representative)</h6>
+                    </td>
+                </tr>
+                <tr>
+                    {% if sup.name == "supervisor" or sup.name == "officer" or sup.name == "railway admin" %}
+                        {% if sup_evaluation_ver != True %}
+                            <td>
+                                <button class="btn btn-primary verify-evaluation-btn"
+                                        data-toggle="modal"
+                                        data-target="#daily-evaluation-verification-modal">Verify</button>
+                            </td>
+                        {% else %}
+                            <td>
+                                <button class="btn btn-success">Verified</button>
+                            </td>
+                        {% endif %}
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if sup.name == "contractor" %}
+                        {% if con_evaluation_ver != True %}
+                            <td>
+                                <button class="btn btn-primary verify-evaluation-btn"
+                                        data-toggle="modal"
+                                        data-target="#daily-evaluation-verification-modal">Verify</button>
+                            </td>
+                        {% else %}
+                            <td>
+                                <button class="btn btn-success">Verified</button>
+                            </td>
+                        {% endif %}
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+  var emailDiv = document.getElementById("email-div")
+  var otpDiv = document.getElementById("otp-div")
+  var emailInput = document.getElementById("email-input")
+  var otpInput = document.getElementById("otp-input")
+  var emailBtn = document.getElementById("email-btn")
+  var otpBtn = document.getElementById("otp-btn")
+
+  otpDiv.style.display = "none"
+
+  emailBtn.addEventListener('click', function(e){
+    const email_input = emailInput.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email_input)) {
+      console.log('Invalid email');
+      emailInput.classList.add('bg-red-100');
+      return;
+    }
+
+    const verificationData = {
+        email: email_input,
+    };
+
+    setCookie(
+      'verification_shift_data',
+      JSON.stringify(verificationData),
+      30
+    );
+
+    fetch('verify_signature_email', {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': '{{ csrf_token }}',
+      },
+      body: JSON.stringify({ email: email_input }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.message === 'Email sent successfully, Please check your Email') {
+        showSuccess(data.message)
+        emailDiv.style.display = "none"
+        otpDiv.style.display = "block"
+      }
+      else{
+        showError(data.message)
+      }
+    })
+  })
+
+  
+  otpBtn.addEventListener('click', function(e){
+    confirm_otp = otpInput.value.trim()
+    const email_input = emailInput.value.trim();
+
+    const verificationData = {
+      otp: confirm_otp,
+    };
+
+    setCookie(
+      'verification_shift_data',
+      JSON.stringify(verificationData),
+      30
+    );
+
+    fetch('confirm_signature_email_daily_eval', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': '{{ csrf_token }}',
+      },
+      body: JSON.stringify({ 
+        otp: confirm_otp,
+        date: `{{evaluation_date}}`,
+        email: email_input,
+      }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.message === 'OTP Verified') {
+        showSuccess("Daily Evaluation Sheet verified successfully")
+        emailDiv.style.display = "block"
+        otpDiv.style.display = "none"
+        emailInput.style.readOnly = "readonly"
+        emailBtn.style.display = "none"
+      }
+      else{
+        showError(data.message)
+      }
+    })
+  })
+
+  function setCookie(name, value, minutes) {
+    const date = new Date();
+    date.setTime(date.getTime() + minutes * 60 * 1000);
+    const expires = 'expires=' + date.toUTCString();
+    document.cookie = name + '=' + value + ';' + expires + ';path=/';
+  }
+
+
+  function showError(message) {
+    document.getElementById("success-error").innerHTML = "<p class='alert alert-danger' style='font-size: 1rem;'>"+ message +"</p>"
+  }
+
+  function showSuccess(message) {
+    document.getElementById("success-error").innerHTML = "<p class='alert alert-success' style='font-size: 1rem;'>"+ message +"</p>"
+  }
+    </script>
+{% endblock %}

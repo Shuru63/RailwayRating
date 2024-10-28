@@ -1,0 +1,40 @@
+.image-preview-container {
+  display: flex;
+  max-height: max-content;
+  flex-grow: 2;
+}
+
+.image-preview-container img {
+  max-height: 100%;
+  max-width: 100px;
+  margin: 4px 10px;
+  object-fit: scale-down;
+}
+
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.image-item {
+  width: 100%;
+}
+
+@media (min-width: 300px) and (max-width: 640px) {
+  .image-item {
+    width: 50%;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 986px) {
+  .image-item {
+    width: 33.33%;
+  }
+}
+
+@media (min-width: 986px) {
+  .image-item {
+    width: 25%;
+  }
+}

@@ -1,0 +1,9 @@
+{
+    "shift":{
+        "shift_id": "0",
+        "start_time": "00:00:00",
+        "end_time": "23:59:59",
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    }
+}

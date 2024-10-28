@@ -1,0 +1,101 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Complaints</title>
+        <style>
+            .category {
+                margin-bottom: 20px;
+                padding: 10px;
+            }
+            .station {
+                margin-bottom: 10px;
+            }
+            table {
+                width: 100%;
+                margin-bottom: 20px;
+                table-layout: auto;
+            }
+            th, td {
+                border: 1px solid black;
+                padding: 5px;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            .narrow-column {
+                width: 12%; 
+            }
+            .narrow-column1 {
+                width: 27%;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 style="text-align: center;">Complaints</h1>
+        <p style="text-align: right;">Downloaded by: {{ user.username }}</p>
+        <p style="text-align: right;">Downloaded at: {{ date }}</p>
+        <p>Complaints for: {{ complaints_for }}</p>
+        <hr>
+        {% for category, stations, no_complaints in combined_list %}
+            <div class="category">
+                <h1>{{ category }}</h1>
+                {% for station in stations %}
+                    {% if station.station_category == category and not station.station_name in no_complaints %}
+                        <div class="station">
+                            <h3>{{ station.station_name }}</h3>
+                            <table>
+                                <tr>
+                                    <th class="narrow-column">Topic</th>
+                                    <th class="narrow-column">Complaint Description</th>
+                                    <th class="narrow-column">Forward To</th>
+                                    <th>Images</th>
+                                    <th class="narrow-column1">Raised</th>
+                                   
+                                </tr>
+                                {% for complaint_query in complaints %}
+                                    {% for complaint in complaint_query %}
+                                        {% if complaint.user.station.station_name == station.station_name %}
+                                        <tr>
+                           
+                                                <td>{{ complaint.task.task_description }}</td>
+                                                <td>{{ complaint.feedback }}</td>
+                                                <td>_ _ _ _ _ _ _ </td> 
+                                                <td>
+                                                    {% for image in complaint.images.all %}
+                                                        {% if is_prod %}
+                                                            <img src="{{ image.image.url }}" alt="Complaint Image">
+                                                        {% else %}
+                                                            <img src="{{ image.image.path }}" alt="Complaint Image">
+                                                        {% endif %}
+                                                            <p><b>Uploaded By : </b>{{ image.user_name }}</p>
+                                                            <p><b>Uploaded At : </b>{{ image.created_at }}</p>
+                                                            <p><b>Uploaded From : </b>({{ image.latitude }}, {{ image.longitude }})</p>
+                                                        
+                                                        <hr>
+                                                    {% endfor %}
+                                                </td>
+                                                <td>
+                                                <p> <b>Raised By : </b> {{ complaint.user_name }}</p>
+                                                <p><b>Raised At : </b>{{ complaint.created_at }}</p>
+                                                <p><b>Raised From : </b>{{ complaint.latitude }}, {{ complaint.longitude }}<p>
+                                                <p><b>Updated At : </b>{{ complaint.updated_at }}</p>
+                                                <p><b>Updated By : </b>{{ complaint.updated_by }}</p>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                            </table>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <h3>Stations without complaints: {{ no_complaints|join:", " }}</h3>
+            </div>
+            <hr>
+        {% endfor %}
+    </body>
+</html>
+ 

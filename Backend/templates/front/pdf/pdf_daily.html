@@ -1,0 +1,50 @@
+{% load custom %}
+{% load static %}
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+{% block body %}
+
+    <!-- Content for page 1 -->
+    {% include 'front/pdf/daily_buyers_rating_sheet.html' %}
+    <!-- Content for page 1 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    {% if passenger_feedback_data %}
+        {% for feedback in passenger_feedback_data %}
+            {% with forloop.counter as page_count %}
+                {% include 'front/pdf/pdf_p11.html' %}
+                <div>
+                    <pdf:nextpage />
+                </div>
+            {% endwith %}
+        {% endfor %}
+    {% elif inspection_feedback_data %}
+        {% include 'front/pdf/inspection_feedback.html' %}
+        <div>
+            <pdf:nextpage />
+        </div>
+    {% else %}
+        {% include 'front/pdf/pdf_p11.html' %}
+        <div>
+            <pdf:nextpage />
+        </div>
+    {% endif %}
+    
+    <!-- Content for page 13 -->
+    {% include 'front/pdf/pdf_p13.html' %}
+    <!-- Content for page 13 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 12 -->
+    {% include 'front/pdf/pdf_p12.html' %}
+    <!-- Content for page 12 -->
+    {% if showimages %}
+        {% include 'front/pdf/pdf_image.html' %}
+    {% endif %}
+    <script type="text/javascript" src="{% static 'assets/js/script2.js' %}"></script>
+
+{% endblock %}

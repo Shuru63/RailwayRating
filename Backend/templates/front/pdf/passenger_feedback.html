@@ -1,0 +1,1077 @@
+{% load custom %}
+{% block body %}
+
+<head>
+  <style>
+    p {
+      margin: 2px;
+      margin-top: 16px;
+      margin-bottom: 8px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .table1 {
+      border-spacing: 0px;
+      border-collapse: collapse;
+      width: 100%;
+      border: 1px solid #000000;
+      border-radius: 0.25rem;
+    }
+
+    .table2 {
+      margin-top: 30px;
+    }
+
+    .td-block {
+      padding: 8px;
+    }
+
+    .td-block2 {
+      text-align: left;
+      padding-left: 4px;
+      padding-right: 4px;
+      width: 50%;
+      font-size: 14px;
+    }
+
+    .td-block3 {
+      text-align: left;
+      padding-left: 4px;
+      padding-right: 4px;
+      font-size: 14px;
+    }
+
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+    :root {
+      --vs-primary: 29 92 255;
+    }
+
+    /*Dialog Styles*/
+    dialog {
+      position: relative;
+      margin: auto;
+      padding: 1rem 3rem;
+      background: white;
+      max-width: 400px;
+      padding-top: 2rem;
+      border-radius: 20px;
+      border: 0;
+      box-shadow: 0 5px 30px 0 rgb(0 0 0 / 10%);
+      animation: fadeIn 1s ease both;
+
+      &::backdrop {
+        animation: fadeIn 1s ease both;
+        background: rgb(255 255 255 / 40%);
+        z-index: 2;
+        backdrop-filter: blur(20px);
+      }
+
+      .x {
+        filter: grayscale(1);
+        border: none;
+        background: none;
+        position: absolute;
+        top: 15px;
+        right: 10px;
+        transition: ease filter, transform 0.3s;
+        cursor: pointer;
+        transform-origin: center;
+
+        &:hover {
+          filter: grayscale(0);
+          transform: scale(1.1);
+        }
+      }
+
+      h2 {
+        font-weight: 600;
+        font-size: 2rem;
+        padding-bottom: 1rem;
+      }
+
+      p {
+        font-size: 1rem;
+        line-height: 1.3rem;
+        padding: 0.5rem 0;
+
+        a {
+          &:visited {
+            color: rgb(var(--vs-primary));
+          }
+        }
+      }
+    }
+
+    /*General Styles*/
+
+
+
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <style>
+    @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css);
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .header-container,
+    .feedback-container {
+      margin-left: auto;
+      margin-right: auto;
+      width: 85%;
+      border-radius: 10px;
+      background-color: #ffffff;
+      padding: 15px;
+    }
+
+    .header-container h4,
+    .feedback-container h4 {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .head_font {
+      font-size: 14px;
+    }
+
+    .feedback-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      overflow-x: scroll;
+    }
+
+    .feedback-table th,
+    .feedback-table td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ccc;
+    }
+
+    .selected-cell {
+      background-color: transparent;
+      color: #fff;
+    }
+
+    .feedback-details {
+      display: flex;
+      flex-direction: row;
+      width: 50%;
+      margin-bottom: 10px;
+    }
+
+    .feedback-p {
+      margin-bottom: 0px;
+      font-size: 15px;
+      font-weight: 600px;
+      width: 30%;
+    }
+
+    @media screen and (max-width: 779px) {
+
+      .header-container h4,
+      .feedback-container h4 {
+        font-size: 1rem;
+      }
+    }
+
+    @media (min-width: 992px) {
+      .head_font {
+        font-size: 20px;
+      }
+    }
+
+    @media screen and (max-width: 644px) {
+      .feedback-description {
+        width: 50% !important;
+        white-space: normal;
+      }
+
+      .feedback-name-div,
+      .feedback-mobile-div,
+      .feedback-ticket-div {
+        width: 70% !important;
+      }
+    }
+
+    @media screen and (max-width: 450px) {
+      .feedback-description {
+        font-size: 13px;
+        width: 70% !important;
+      }
+
+      .feedback-table th,
+      .feedback-table td {
+        font-size: 13px;
+        padding: 5px;
+      }
+
+      .feedback-name-div,
+      .feedback-mobile-div,
+      .feedback-ticket-div {
+        width: 100% !important;
+      }
+    }
+  </style>
+</head>
+<div>
+  <dialog id="dialog">
+    <p>Feedback Is Deleted, Just Reload The Page!</p>
+    <button onclick="window.dialog.close();" aria-label="close" class="x">❌</button>
+  </dialog>
+  <div class="feedback-container" style="margin-top: 10px">
+    <p>Please tick (√) in appropriate column</p>
+    <table class="feedback-table" style="flex-direction: row">
+      {% if feedback_data %}
+      <thead>
+        <tr>
+          <th>SN</th>
+          <th>ITEM</th>
+          <th>Excellent</th>
+          <th>OK</th>
+          <th>Poor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-block">1</td>
+          <td class="feedback-description" style="text-align: left">General Cleaning of platform</td>
+          {% if feedback.feedback_value_1 == '2' %}
+          <td style="text-align: center;
+                                           color: blue" onclick="selectCell(this, 2, {{ page_count }})">&#10003;</td>
+          {% else %}
+          <td onclick="selectCell(this, 2, `{{ page_count }}`)"></td>
+          {% endif %}
+          {% if feedback.feedback_value_1 == '1' %}
+          <td style="text-align: center;
+                                           color: blue" onclick="selectCell(this, 1, {{ page_count }})">&#10003;</td>
+          {% else %}
+          <td onclick="selectCell(this, 1, `{{ page_count }}`)"></td>
+          {% endif %}
+          {% if feedback.feedback_value_1 == '0' %}
+          <td style="text-align: center;
+                                           color: blue" onclick="selectCell(this, 0, {{ page_count }})">&#10003;</td>
+          {% else %}
+          <td onclick="selectCell(this, 0, `{{ page_count }}`)"></td>
+          {% endif %}
+        </tr>
+        <tr>
+          <td class="td-block">2</td>
+          <td class="feedback-description" style="text-align: left">General Cleaning of rail line (track) of Platform
+          </td>
+          {% if feedback.feedback_value_2 == '2' %}
+          <td style="text-align: center;
+                                           color: blue" onclick="selectCell(this, 2, {{ page_count }})">&#10003;</td>
+          {% else %}
+          <td onclick="selectCell(this, 2, `{{ page_count }}`)"></td>
+          {% endif %}
+          {% if feedback.feedback_value_2 == '1' %}
+          <td style="text-align: center;
+                                           color: blue" onclick="selectCell(this, 1, {{ page_count }})">&#10003;</td>
+          {% else %}
+          <td onclick="selectCell(this, 1, `{{ page_count }}`)"></td>
+          {% endif %}
+          {% if feedback.feedback_value_2 == '0' %}
+          <td style="text-align: center;
+                                           color: blue" onclick="selectCell(this, 0, {{ page_count }})">&#10003;</td>
+          {% else %}
+          <td onclick="selectCell(this, 0, `{{ page_count }}`)"></td>
+          {% endif %}
+        </tr>
+        <tr>
+          <td class="td-block">3</td>
+          <td class="feedback-description" style="text-align: left">Cleaning of toilets/ Urinals/ Water booth etc.</td>
+          {% if feedback.feedback_value_3 == '2' %}
+          <td style="text-align: center;
+                                           color: blue" onclick="selectCell(this, 2, {{ page_count }})">&#10003;</td>
+          {% else %}
+          <td onclick="selectCell(this, 2, `{{ page_count }}`)"></td>
+          {% endif %}
+          {% if feedback.feedback_value_3 == '1' %}
+          <td style="text-align: center;
+                                           color: blue" onclick="selectCell(this, 1, {{ page_count }})">&#10003;</td>
+          {% else %}
+          <td onclick="selectCell(this, 1, `{{ page_count }}`)"></td>
+          {% endif %}
+          {% if feedback.feedback_value_3 == '0' %}
+          <td style="text-align: center;
+                                           color: blue" onclick="selectCell(this, 0, {{ page_count }})">&#10003;</td>
+          {% else %}
+          <td onclick="selectCell(this, 0, `{{ page_count }}`)"></td>
+          {% endif %}
+        </tr>
+        <tr>
+          <td class="td-block">4</td>
+          <td class="feedback-description" style="text-align: left">Cleaning of dustbin and disposal of garbage</td>
+          {% if feedback.feedback_value_4 == '2' %}
+          <td style="text-align: center;
+                                           color: blue" onclick="selectCell(this, 2 , {{ page_count }})">&#10003;</td>
+          {% else %}
+          <td onclick="selectCell(this, 2 , `{{ page_count }}`)"></td>
+          {% endif %}
+          {% if feedback.feedback_value_4 == '1' %}
+          <td style="text-align: center;
+                                           color: blue" onclick="selectCell(this, 1, {{ page_count }})">&#10003;</td>
+          {% else %}
+          <td onclick="selectCell(this, 1, `{{ page_count }}`)"></td>
+          {% endif %}
+          {% if feedback.feedback_value_4 == '0' %}
+          <td style="text-align: center;
+                                           color: blue" onclick="selectCell(this, 0, {{ page_count }})">&#10003;</td>
+          {% else %}
+          <td onclick="selectCell(this, 0, `{{ page_count }}`)"></td>
+          {% endif %}
+        </tr>
+        <tr>
+          <td class="td-block">5</td>
+          <td class="feedback-description" style="text-align: left">General Cleaning of waiting hall</td>
+          {% if feedback.feedback_value_5 == '2' %}
+          <td style="text-align: center;
+                                           color: blue" onclick="selectCell(this, 2, {{ page_count }})">&#10003;</td>
+          {% else %}
+          <td onclick="selectCell(this, 2, `{{ page_count }}`)"></td>
+          {% endif %}
+          {% if feedback.feedback_value_5 == '1' %}
+          <td style="text-align: center;
+                                           color: blue" onclick="selectCell(this, 1, {{ page_count }})">&#10003;</td>
+          {% else %}
+          <td onclick="selectCell(this, 1, `{{ page_count }}`)"></td>
+          {% endif %}
+          {% if feedback.feedback_value_5 == '0' %}
+          <td style="text-align: center;
+                                           color: blue" onclick="selectCell(this, 0, {{ page_count }})">&#10003;</td>
+          {% else %}
+          <td onclick="selectCell(this, 0, `{{ page_count }}`)"></td>
+          {% endif %}
+        </tr>
+      </tbody>
+      <table style="margin-top: 50px" id="name_{{ page_count }}">
+        <tr style="margin: 30px; margin-top: 50px">
+          <td>
+            Name of passenger:<span style="color: blue">{{ feedback.passenger_name }}</span>
+          </td>
+        </tr>
+      </table>
+      <table style="margin-top: 50px" id="name_input_{{ page_count }}">
+        <tr style="margin: 30px; margin-top: 50px">
+          <td>
+            Name of Passenger:<span>
+              <input value="{{ feedback.passenger_name }}" name="name_input_{{ page_count }}" style="width: 50%" />
+            </span>
+          </td>
+        </tr>
+      </table>
+      <table class="table2">
+        <tr style="margin: 30px">
+          <td>
+            Identity of passenger:
+            {% if feedback.verified %}
+            <span style="color: blue">Verified</span>
+            <i class="fa-solid fa-circle-check" style="color: green"></i>
+            {% else %}
+            <span style="color: blue">Not Verified</span>
+            <i class="fa-solid fa-circle-xmark" style="color: red"></i>
+            {% endif %}
+          </td>
+        </tr>
+      </table>
+      <table class="table2">
+        <tr style="margin: 30px; margin-top: 50px">
+          <td>
+            Time & Date:
+            <span style="color: blue">{{ feedback.date }} {{ feedback.time }}</span>
+          </td>
+        </tr>
+      </table>
+      {% if feedback.updated_date_time %}
+      <table class="table2">
+        <tr style="margin: 30px; margin-top: 50px">
+          <td>
+            Updated Time & Date:
+            <span style="color: blue">{{ feedback.updated_date_time }}</span>
+          </td>
+        </tr>
+      </table>
+      {% endif %}
+      <table class="table2" id="ticket_no_{{ page_count }}">
+        <tr style="margin: 30px">
+          <td>
+            PNR NO. / Ticket No.:
+            <span style="color: blue">{{ feedback.ticket_no }}</span>
+          </td>
+        </tr>
+      </table>
+      <table class="table2" id="ticket_no_input_{{ page_count }}">
+        <tr style="margin: 30px">
+          <td>
+            PNR NO. / Ticket No.:
+            <span style="color: blue">
+              <input value="{{ feedback.ticket_no }}" name="ticket_no_input_{{ page_count }}" style="width: 50%" />
+            </span>
+          </td>
+        </tr>
+      </table>
+      <table class="table2" id="email_{{ page_count }}">
+        <tr style="margin: 30px">
+          <td>
+            Email Id.:
+            <span style="color: blue">{{ feedback.email }}</span>
+          </td>
+        </tr>
+      </table>
+      <table class="table2" id="email_input_{{ page_count }}">
+        <tr style="margin: 30px">
+          <td>
+            Email Id.:
+            <span style="color: blue">
+              <input value="{{ feedback.email }}" name="email_input_{{ page_count }}" id="email_input"
+                style="width: 70%" />
+            </span>
+          </td>
+          <td>
+            <button id="verifyEmailBtn_{{ page_count }}" class="verifyEmailBtn" style="padding: 4px">Verify</button>
+          </td>
+        </tr>
+      </table>
+      <table class="table2" id="otp_{{ page_count }}">
+        <tr style="margin: 30px">
+          <td>
+            Enter Otp
+            <span style="color: blue">
+              <input name="otp_{{ page_count }}" id="otp_input" />
+            </span>
+          </td>
+          <td>
+            <button id="otpBtn_{{ page_count }}" class="otpBtn" style="padding: 4px">Submit</button>
+          </td>
+        </tr>
+      </table>
+      <table class="table2">
+        <tr style="margin: 30px">
+          <td id="mobile_no_{{ page_count }}">
+            Mobile No: <span style="color: blue">{{ feedback.mobile_no }}</span>
+          </td>
+          <td id="mobile_no_input_{{ page_count }}">
+            Mobile No:
+            <span style="color: blue">
+              <input value="{{ feedback.mobile_no }}" name="mobile_no_input_{{ page_count }}" style="width: 70%" />
+            </span>
+          </td>
+          <td>
+            {% if current_user == feedback.user.username or sup == "railway admin" or sup == "officer" %}
+            <div>
+              <button type="submit" class="btn btn-danger" onclick="delete_func({{feedback.id}})">Delete Feedback
+              </button>
+              <script>
+                function delete_func(id) {
+                  event.preventDefault();
+                  const url = `{{REQ_URL}}api/feedback/delete/${id}`
+                  event.target.innerHTML = "Deleting The Feedback.";
+
+                  fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+                      'Content-Type': 'application/json;charset=utf-8',
+                      'Authorization': `{{authorization_header}}`
+                    }
+                  }).then(
+                    response => {
+                      if (response.ok) {
+                        window.dialog.showModal()
+                        const responseData = response.json();
+                        const message = responseData.message;
+                        console.log(responseData, message)
+                      } else {
+                        console.log('An error occurred:', response.statusText);
+                      }
+                    }
+                  ).catch((error) => {
+                    console.log(error)
+                  })
+
+                }
+              </script>
+            </div>
+            {% else %}
+            <button type="submit" style="background-color: rgb(76, 75, 75);
+                                               padding: 4px;
+                                               height: max-content;
+                                               width: max-content;
+                                               border-radius: 4px;
+                                               margin-left: 35px" disabled>Delete Feedback</button>
+            {% endif %}
+          </td>
+        </tr>
+      </table>
+      {% if current_user == feedback.user.username or sup == "railway admin" %}
+      {% if not feedback.verified %}
+      <table class="table2">
+        <tr>
+          <td>
+            <button id="edit_feedback_btn_{{ page_count }}" class="edit_feedback_btn" type="button" style="padding: 4px;
+                                                   background-color: blue;
+                                                   border-radius: 4px">
+              Edit Feedback
+              <i class="fa-solid fa-pen"></i>
+            </button>
+          </td>
+          <td>
+
+            <button id="update_feedback_btn_{{ page_count }}" class="update_feedback_btn" type="submit"
+              onclick="update_func({{feedback.id}},{{ page_count }})" style="padding: 4px;
+                                                       background-color: green;
+                                                       border-radius: 4px">
+              update Feedback
+              <i class="fa-solid fa-pen"></i>
+            </button>
+            <input id="feedback_value_{{page_count}}" type="hidden"
+              value="{{feedback.feedback_value_1}}{{feedback.feedback_value_2}}{{feedback.feedback_value_3}}{{feedback.feedback_value_4}}{{feedback.feedback_value_5}}{{feedback.id}}" />
+          </td>
+        </tr>
+      </table>
+      {% endif %}
+      {% endif %}
+      {% else %}
+      <!-- Default table body when no data is provided-->
+      <table class="feedback-table" style="flex-direction: row">
+        <thead>
+          <tr>
+            <th>SN</th>
+            <th>ITEM</th>
+            <th>Excellent</th>
+            <th>OK</th>
+            <th>Poor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td style="text-align: left" feedback-description>Weightage-></td>
+            <td>100%</td>
+            <td>90%</td>
+            <td>0%</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td class="feedback-description" style="text-align: left">General Cleaning of platform</td>
+            <td onclick="selectCell(this, 2)"></td>
+            <td onclick="selectCell(this, 1)"></td>
+            <td onclick="selectCell(this, 0)"></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td style="text-align: left" class="feedback-description">General Cleaning of rail line (track) of Platform
+            </td>
+            <td onclick="selectCell(this, 2)"></td>
+            <td onclick="selectCell(this, 1)"></td>
+            <td onclick="selectCell(this, 0)"></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td style="text-align: left" class="feedback-description">Cleaning of toilets/ Urinals/ Water booth etc.
+            </td>
+            <td onclick="selectCell(this, 2)"></td>
+            <td onclick="selectCell(this, 1)"></td>
+            <td onclick="selectCell(this, 0)"></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td style="text-align: left" class="feedback-description">Cleaning of dustbin and disposal of garbage</td>
+            <td onclick="selectCell(this, 2)"></td>
+            <td onclick="selectCell(this, 1)"></td>
+            <td onclick="selectCell(this, 0)"></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td style="text-align: left" class="feedback-description">General Cleaning of waiting hall</td>
+            <td onclick="selectCell(this, 2)"></td>
+            <td onclick="selectCell(this, 1)"></td>
+            <td onclick="selectCell(this, 0)"></td>
+          </tr>
+        </tbody>
+      </table>
+    </table>
+    <table style="margin-top: 50px">
+      <tr style="margin: 30px; margin-top: 50px">
+        <td>Name of passenger:</td>
+      </tr>
+    </table>
+    <table class="table2">
+      <tr style="margin: 30px">
+        <td>Identity of passenger:</td>
+      </tr>
+    </table>
+    <table class="table2">
+      <tr style="margin: 30px; margin-top: 50px">
+        <td>Time & Date:</td>
+      </tr>
+    </table>
+    <table class="table2">
+      <tr style="margin: 30px">
+        <td>PNR NO. / Ticket No.:</td>
+      </tr>
+    </table>
+    <table class="table2">
+      <tr style="margin: 30px">
+        <td>Email Id:</td>
+      </tr>
+    </table>
+    <table class="table2">
+      <tr style="margin: 30px">
+        <td>Mobile No:</td>
+      </tr>
+    </table>
+    {% endif %}
+    <hr />
+  </div>
+  <!-- LOGIC for submiting feedback and verifying the feedback -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+
+  <script>
+    var update_btns = document.getElementsByClassName('update_feedback_btn');
+    var edit = 0;
+    var verification_status = 'no';
+    for (i = 0; i < update_btns.length; i++) {
+      update_btns[i].style.display = 'none';
+    }
+
+    document.getElementById(
+      'name_input_' + `{{page_count}}`.toString()
+    ).style.display = 'none';
+    document.getElementById(
+      'mobile_no_input_' + `{{page_count}}`.toString()
+    ).style.display = 'none';
+    document.getElementById(
+      'email_input_' + `{{page_count}}`.toString()
+    ).style.display = 'none';
+    document.getElementById(
+      'ticket_no_input_' + `{{page_count}}`.toString()
+    ).style.display = 'none';
+    document.getElementById(
+      'otp_' + `{{page_count}}`.toString()
+    ).style.display = 'none';
+
+    if (
+      document.getElementById(
+        'edit_feedback_btn_' + `{{page_count}}`.toString()
+      )
+    ) {
+      document
+        .getElementById('edit_feedback_btn_' + `{{page_count}}`.toString())
+        .addEventListener('click', function (e) {
+          console.log(edit);
+          verification_status = 'no';
+          if (edit !== 0 && edit != parseInt(`{{page_count}}`.toString())) {
+            document.getElementById('edit_feedback_btn_' + edit).style.display =
+              'block';
+            document.getElementById(
+              'update_feedback_btn' + '_' + edit
+            ).style.display = 'none';
+
+            document.getElementById('name_' + edit).style.display = 'block';
+            document.getElementById('mobile_no_' + edit).style.display =
+              'block';
+            document.getElementById('email_' + edit).style.display = 'block';
+            document.getElementById('ticket_no_' + edit).style.display =
+              'block';
+
+            document.getElementById('name_input_' + edit).style.display =
+              'none';
+            document.getElementById('mobile_no_input_' + edit).style.display =
+              'none';
+            document.getElementById('email_input_' + edit).style.display =
+              'none';
+            document.getElementById('ticket_no_input_' + edit).style.display =
+              'none';
+
+            var feedback_ele_1 = document.getElementsByName('feedback_0')[0];
+            if (feedback_ele_1) {
+              feedback_ele_1.parentNode.removeChild(feedback_ele_1);
+            }
+            var feedback_ele_2 = document.getElementsByName('feedback_1')[0];
+            if (feedback_ele_2) {
+              feedback_ele_2.parentNode.removeChild(feedback_ele_2);
+            }
+            var feedback_ele_3 = document.getElementsByName('feedback_2')[0];
+            if (feedback_ele_3) {
+              feedback_ele_3.parentNode.removeChild(feedback_ele_3);
+            }
+            var feedback_ele_4 = document.getElementsByName('feedback_3')[0];
+            if (feedback_ele_4) {
+              feedback_ele_4.parentNode.removeChild(feedback_ele_4);
+            }
+            var feedback_ele_5 = document.getElementsByName('feedback_4')[0];
+            if (feedback_ele_5) {
+              feedback_ele_5.parentNode.removeChild(feedback_ele_5);
+            }
+          }
+
+          e.target.style.display = 'none';
+          var btn_id_update =
+            'update_feedback_btn' + '_' + `{{page_count}}`.toString();
+          console.log(btn_id_update);
+          var update_feedback_btn = document.getElementById(btn_id_update);
+          update_feedback_btn.style.display = 'block';
+
+          var name_field = document.getElementById(
+            'name_' + `{{page_count}}`.toString()
+          );
+          var mobile_field = document.getElementById(
+            'mobile_no_' + `{{page_count}}`.toString()
+          );
+          var email_field = document.getElementById(
+            'email_' + `{{page_count}}`.toString()
+          );
+          var ticket_field = document.getElementById(
+            'ticket_no_' + `{{page_count}}`.toString()
+          );
+
+          var name_field_input = document.getElementById(
+            'name_input_' + `{{page_count}}`.toString()
+          );
+          var mobile_field_input = document.getElementById(
+            'mobile_no_input_' + `{{page_count}}`.toString()
+          );
+          var email_field_input = document.getElementById(
+            'email_input_' + `{{page_count}}`.toString()
+          );
+          var ticket_field_input = document.getElementById(
+            'ticket_no_input_' + `{{page_count}}`.toString()
+          );
+
+          name_field.style.display = 'none';
+          mobile_field.style.display = 'none';
+          email_field.style.display = 'none';
+          ticket_field.style.display = 'none';
+
+          name_field_input.style.display = 'block';
+          mobile_field_input.style.display = 'block';
+          email_field_input.style.display = 'block';
+          ticket_field_input.style.display = 'block';
+
+          edit = parseInt(`{{page_count}}`);
+        });
+    }
+
+    function selectCell(cell, value, page_count) {
+      if (edit == page_count) {
+        const row = cell.parentNode;
+        const cells = row.getElementsByTagName('td');
+        for (let i = 2; i < cells.length; i++) {
+          cells[i].innerHTML = '';
+        }
+
+        if (cell.classList.contains('selected-cell')) {
+          cell.classList.remove('selected-cell');
+          value = '';
+        } else {
+          cell.classList.add('selected-cell');
+          const svg = document.createElementNS(
+            'http://www.w3.org/2000/svg',
+            'svg'
+          );
+          svg.setAttribute('viewBox', '0 0 24 24');
+          svg.setAttribute('width', '20');
+          svg.setAttribute('height', '20');
+          svg.innerHTML =
+            '<path fill="#007bff" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />';
+          cell.appendChild(svg);
+        }
+
+        const inputElement = row.querySelector('input[type="hidden"]');
+        if (inputElement) {
+          inputElement.value = value;
+        } else {
+          const newInputElement = document.createElement('input');
+          newInputElement.type = 'hidden';
+          newInputElement.name = `feedback_${row.rowIndex - 1}`;
+          newInputElement.value = value;
+          row.appendChild(newInputElement);
+        }
+      }
+    }
+
+    if (
+      document.getElementById('verifyEmailBtn_' + `{{page_count}}`.toString())
+    ) {
+      document
+        .getElementById('verifyEmailBtn_' + `{{page_count}}`.toString())
+        .addEventListener('click', function (e) {
+          var feedback_num = `{{page_count}}`.toString();
+          emailInput = document.getElementsByName(
+            'email_input_' + feedback_num
+          )[0];
+
+          const email = emailInput.value.trim();
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+          if (!emailRegex.test(email)) {
+            showEmailError('invalid email');
+            return;
+          }
+
+          const registrationData = {
+            email: email,
+          };
+
+          setCookie(
+            'registration_data_to_validate',
+            JSON.stringify(registrationData),
+            30
+          );
+
+          fetch('{{REQ_URL}}api/feedback/verify-passenger-email/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': '{{ csrf_token }}',
+              'Authorization': `{{authorization_header}}`,
+            },
+            body: JSON.stringify({ email: email }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (
+                data.message ===
+                'Email sent successfully, Please check your Email'
+              ) {
+                // showEmailSuccess(data.message);
+                console.log(data.message)
+                e.target.closest('table').style.display = 'none';
+                document.getElementById('otp_' + feedback_num).style.display =
+                  'block';
+              } else {
+                showEmailError(data.message);
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        });
+    }
+
+    if (document.getElementById('otpBtn_' + `{{page_count}}`.toString())) {
+      document
+        .getElementById('otpBtn_' + `{{page_count}}`.toString())
+        .addEventListener('click', function (e) {
+          var feedback_num = `{{page_count}}`.toString();
+
+          email_otp = document.getElementsByName('otp_' + feedback_num)[0]
+            .value;
+
+          const registrationData = {
+            otp: email_otp,
+          };
+
+          setCookie(
+            'registration_data_to_validate',
+            JSON.stringify(registrationData),
+            30
+          );
+
+          emailInput = document.getElementsByName(
+            'email_input_' + feedback_num
+          )[0];
+
+          const email = emailInput.value.trim();
+
+          fetch('{{REQ_URL}}api/feedback/confirm-passenger-email/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': '{{ csrf_token }}',
+              'Authorization': `{{authorization_header}}`
+            },
+            body: JSON.stringify({ email, otp: email_otp, date: `{{date}}` }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.message === 'OTP Verified') {
+                // showEmailSuccess(data.message);
+                console.log(data.message)
+                e.target.closest('table').style.display = 'none';
+                document.getElementById(
+                  'email_input_' + feedback_num
+                ).style.display = 'block';
+                document.getElementById(
+                  'verifyEmailBtn_' + `{{page_count}}`.toString()
+                ).style.display = 'none';
+                document.getElementsByName(
+                  'email_input_' + feedback_num
+                )[0].readOnly = 'readonly';
+                verification_status = 'yes';
+              } else {
+                // showEmailError(data.message);
+                console.log(data.message)
+                e.target.closest('table').style.display = 'none';
+                document.getElementById(
+                  'email_input_' + feedback_num
+                ).style.display = 'block';
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        });
+    }
+
+    function setCookie(name, value, minutes) {
+      const date = new Date();
+      date.setTime(date.getTime() + minutes * 60 * 1000);
+      const expires = 'expires=' + date.toUTCString();
+      const feedback_verify = 'feedback_verify=yes;';
+      document.cookie =
+        name + '=' + value + ';' + expires + feedback_verify + ';path=/';
+    }
+
+    function showEmailError(message) {
+      document.getElementById('modal-title').innerHTML = 'Error';
+      document.getElementById('modal-body').innerHTML =
+        "<p class='alert alert-error' style='font-size: 1.3rem;'>" +
+        message +
+        '</p>';
+      $('#feedback-email-error').modal('show');
+    }
+
+    function showEmailSuccess(message) {
+      document.getElementById('modal-title').innerHTML = 'Success';
+      document.getElementById('modal-body').innerHTML =
+        "<p class='alert alert-success' style='font-size: 1.3rem;'>" +
+        message +
+        '</p>';
+      $('#feedback-email-error').modal('show');
+    }
+
+    function update_func(id, page_count) {
+      event.preventDefault();
+      // event.stopPropagation();
+
+      const url = `{{REQ_URL}}api/feedback/update/${id}`;
+
+      console.log(event.target)
+      console.log(page_count)
+      var feedback_values = document.getElementById(
+        'feedback_value_' + page_count.toString()
+      ).value;
+      // console.log(feedback_values)
+
+      var update_name = document.getElementsByName(
+        'name_input_' + page_count.toString()
+      )[0].value;
+      var update_email = document.getElementsByName(
+        'email_input_' + page_count.toString()
+      )[0].value;
+      var update_mobile = document.getElementsByName(
+        'mobile_no_input_' + page_count.toString()
+      )[0].value;
+      var update_ticket = document.getElementsByName(
+        'ticket_no_input_' + page_count.toString()
+      )[0].value;
+
+      var feedback_value_1 = document.getElementsByName('feedback_0')[0];
+      if (feedback_value_1) {
+        feedback_value_1 = feedback_value_1.value;
+      } else {
+        feedback_value_1 = feedback_values[0];
+      }
+      var feedback_value_2 = document.getElementsByName('feedback_1')[0];
+      if (feedback_value_2) {
+        feedback_value_2 = feedback_value_2.value;
+      } else {
+        feedback_value_2 = feedback_values[1];
+      }
+      var feedback_value_3 = document.getElementsByName('feedback_2')[0];
+      if (feedback_value_3) {
+        feedback_value_3 = feedback_value_3.value;
+      } else {
+        feedback_value_3 = feedback_values[2];
+      }
+      var feedback_value_4 = document.getElementsByName('feedback_3')[0];
+      if (feedback_value_4) {
+        feedback_value_4 = feedback_value_4.value;
+      } else {
+        feedback_value_4 = feedback_values[3];
+      }
+      var feedback_value_5 = document.getElementsByName('feedback_4')[0];
+      if (feedback_value_5) {
+        feedback_value_5 = feedback_value_5.value;
+      } else {
+        feedback_value_5 = feedback_values[4];
+      }
+
+      data = {
+        'passenger_name': update_name,
+        'email': update_email,
+        'mobile_no': update_mobile,
+        'ticket_no': update_ticket,
+        'feedback_value_1': parseInt(feedback_value_1),
+        'feedback_value_2': parseInt(feedback_value_2),
+        'feedback_value_3': parseInt(feedback_value_3),
+        'feedback_value_4': parseInt(feedback_value_4),
+        'feedback_value_5': parseInt(feedback_value_5),
+        'verified': verification_status,
+      }
+
+      try {
+        fetch(url, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            'Authorization': `{{authorization_header}}`
+          },
+          body: JSON.stringify(data)
+        }).then(
+          response => {
+            if (response.ok) {
+              const responseData = response.json();
+              const message = responseData.message;
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000);
+              // window.location.reload()
+              // window.top.location.reload()
+            } else {
+              console.log('An error occurred:', response.statusText);
+              window.location.reload()
+              // window.top.location.reload()
+            }
+          }
+        )
+
+
+      } catch (error) {
+        console.error('An error occurred:', error);
+        window.location.reload();
+      }
+    }
+  </script>
+</div>
+{% endblock %}

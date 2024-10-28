@@ -1,0 +1,93 @@
+{% load custom %}
+{% load static %}
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+{% block body %}
+    <!-- Content for page1 (MONTHLY)-->
+    {% if number_of_days_month %}
+        {% with context.date as date %}
+            {% include 'front/pdf/pdf_buyers_rating_month.html' %}
+            {% if showimages %}
+                {% include 'front/pdf/pdf_image_monthly.html' %}
+            {% endif %}
+        {% endwith %}
+    {% else %}
+        {% include 'front/pdf/pdf_buyers_rating_month.html' %}
+        {% if showimages %}
+            {% include 'front/pdf/pdf_image_monthly.html' %}
+        {% endif %}
+    {% endif %}
+    <!-- Content for Images (MONTHLY)-->
+    
+    <!-- Content for page1 -->
+    <!-- Content for page 2 (MONTHLY)-->
+    {% include 'front/pdf/pdf_p2.html' %}
+    <!-- Content for page 2 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 3 (MONTHLY)-->
+    {% include 'front/pdf/pdf_p3.html' %}
+    <!-- Content for page 3 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 4 (WEEKLY)-->
+    {% include 'front/pdf/pdf_p4.html' %}
+    <!-- Content for page 4 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 5 (WEEKLY)-->
+    {% include 'front/pdf/pdf_p5.html' %}
+    <!-- Content for page 5 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 6 (MONTHLY)-->
+    {% include 'front/pdf/pdf_p6.html' %}
+    <!-- Content for page 6 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 7 (WEEKLY)-->
+    {% include 'front/pdf/pdf_p7.html' %}
+    <!-- Content for page 7 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 8 (WEEKLY)-->
+    {% include 'front/pdf/pdf_p8.html' %}
+    <!-- Content for page 8 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 9 (MONTHLY)-->
+    {% include 'front/pdf/pdf_p9.html' %}
+    <!-- Content for page 9 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for page 10 (MONTHLY)-->
+    {% include 'front/pdf/pdf_p10.html' %}
+    <!-- Content for page 10 -->
+    <div>
+        <pdf:nextpage />
+    </div>
+    <!-- Content for feedback data (MONTHLY) -->
+    {% if feedback_data %}
+        {% for feedback in feedback_data %}
+            {% with forloop.counter as page_count %}
+                {% include 'front/pdf/pdf_p11.html' %}
+                <div>
+                    <pdf:nextpage />
+                </div>
+            {% endwith %}
+        {% endfor %}
+    {% endif %}
+    <script type="text/javascript"
+            src="{% static 'assets/js/jquery/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/script2.js' %}"></script>
+{% endblock %}

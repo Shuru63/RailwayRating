@@ -1,0 +1,51 @@
+{
+    "task_1": {
+        "station": "DLN",
+        "task_id": 1,
+        "task_type": "A",
+        "service_type": "Indoor Area",
+        "task_description": "General Cleaning {sweeping, mopping0 (where required) Dusting} of All Indoor Area & Toilets (04 Nos.)",
+        "cleaning_cycle_days": "730",
+        "cleaning_cycle_type": "D",
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    },
+    "task_2": {
+        "station": "DLN",
+        "task_id": 2,
+        "task_type": "A",
+        "service_type": "Indoor Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of Booking Counter Glass Area",
+        "cleaning_cycle_days": "365",
+        "cleaning_cycle_type": "A", 
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    },
+    "task_3": {
+        "station": "DLN",
+        "task_id": 3,
+        "task_type": "A",
+        "service_type": "Outdoor Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of Area of FOB - Hall Area, Area of FOB - Step Area, Passenger Shed Area, Pathway from PF to Panel, New Constructed PF 03, Area of Drain, Area of Water booth, Area of Track, Panel Room Area (Newly Building) outside & All Outdoor Area (Remaining)",
+        "cleaning_cycle_days": "365",
+        "cleaning_cycle_type": "A",
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    },
+    "task_4": {
+        "station": "DLN",
+        "task_id": 4,
+        "task_type": "A",
+        "service_type": "Outdoor Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of Area of Yard",
+        "cleaning_cycle_days": "104",
+        "cleaning_cycle_type": "BW",
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    }
+
+}

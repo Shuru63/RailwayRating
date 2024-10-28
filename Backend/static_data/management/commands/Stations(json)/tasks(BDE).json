@@ -1,0 +1,24 @@
+{
+    "task_1": {
+        "task_id": 1,
+        "task_type": "A",
+        "task_description": "Indoor Area",
+        "service_type": "General Cleaning (sweeping, Mopping, Dusting)",
+        "cleaning_cycle_days": "730",
+        "cleaning_cycle_type": "D",
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    },
+    "task_2": {
+        "task_id": 2,
+        "task_type": "A",
+        "task_description": "Outdoor Area",
+        "service_type": "General Cleaning {sweeping, mopping (where required) Dusting}",
+        "cleaning_cycle_days": "365",
+        "cleaning_cycle_type": "A",
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    }
+}

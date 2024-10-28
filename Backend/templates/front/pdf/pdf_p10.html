@@ -1,0 +1,148 @@
+{% load custom %}
+{% block body %}
+    <head>
+        <style>
+    .td-block{
+      font-size:12px;
+    }
+    .tr-block th{
+      font-size:13px;
+    }
+    .table  table-bordered{
+      font-size:0.7 rem;
+      border-spacing: 0;
+       border-collapse: collapse; 
+       margin-top: 50px;
+    }
+    .bg-dark text-whitestyle{
+      font-size: 15px !important;
+    }
+    .table table-values{
+      font-size:large; 
+      color: #0040ff;
+    }
+    .table table-total{
+      padding: 2px; 
+      font-size: 13px;
+    }
+    
+        </style>
+    </head>
+    <div>
+        <center>
+            <h2>
+                <u>MONTHLY DEDUCTION </u>
+            </h2>
+        </center>
+        <table style="width: 100%">
+            <tr style="width: 100%">
+                <td style="width: 15%">
+                    <b>Name of work:</b>
+                </td>
+                <td style="width: 85%">
+                    <b>{{ station.name_of_work }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Cleaning Contract by:</b>
+                </td>
+                <td>
+                    <b> {{ station.contract_by }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Contract No.:</b>
+                </td>
+                <td>
+                    <b>{{ station.contract_no }}</b>
+                </td>
+            </tr>
+        </table>
+        <table id="table"
+               class="table table-bordered"
+               cellspacing="0"
+               width="100%"
+               align="center"
+               border=".5">
+            <thead class="bg-dark text-white">
+                <tr class="tr-block">
+                    <th scope="col" colspan="1">S.no.</th>
+                    <th scope="col" colspan="1">Date</th>
+                    <th scope="col" colspan="3">Deduction Amount</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="td-block">
+                        <center>OVERALL RATING
+                            <br />
+                        75%-85%</center>
+                    </td>
+                    <td class="td-block">
+                        <center>OVERALL
+                            <br />
+                            RATING
+                            <br />
+                        65%-75%</center>
+                    </td>
+                    <td class="td-block">
+                        <center>OVERALL RATING
+                            <br />
+                        Below 65%</center>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for daily_penalty in monthly_penalty_data %}
+                    <tr>
+                        <td style="padding: 1px">
+                            <center>{{ forloop.counter }}</center>
+                        </td>
+                        <td style="color: #0040ff; padding: 1.5px;">
+                            <center>{{ daily_penalty.date }}</center>
+                        </td>
+                        <td class="table table-values">
+                            <center>{{ daily_penalty.first_deduction }}</center>
+                        </td>
+                        <td class="table table-values">
+                            <center>{{ daily_penalty.second_deduction }}</center>
+                        </td>
+                        <td class="table table-values">
+                            <center>{{ daily_penalty.third_deduction }}</center>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="2" class="table table-total">
+                        <center>Total</center>
+                    </td>
+                    <td class="table table-values" style="color: crimson;"><center>{{ first_deduction_sum }}</center></td>
+                    <td class="table table-values" style="color: crimson;"><center>{{ second_deduction_sum }}</center></td>
+                    <td class="table table-values" style="color: crimson;"><center>{{ third_deduction_sum }}</center></td>
+                </tr>
+            </tbody>
+        </table>
+        <table style="margin-top: 70px">
+            <tr>
+                <td>
+                    <h2>Signature of Concerning /CHI/SSE/JE</h2>
+                </td>
+                <td>
+                    <h2>Signature of Contractor/Authorized Signatory of contractor</h2>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2 style="margin-left: 40px">(Buyer Representative)</h2>
+                </td>
+                <td>
+                    <h2>
+                        <center>(User Representative)</center>
+                    </h2>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}

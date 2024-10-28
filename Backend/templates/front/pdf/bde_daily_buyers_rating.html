@@ -1,0 +1,320 @@
+{% block body %}
+    <head>
+        <style>
+            .container{
+                display: flex; 
+                flex-direction: column; 
+                justify-content: start; 
+                align-items: start;
+            }
+            .container .table{
+                width: 100%;
+            }
+            .td{
+                padding-top: 1px; 
+                padding-left: 1;
+            }
+            .table table-bordered{
+                font-size: 0.7rem;
+                border-spacing: 0;
+                border-collapse: collapse;
+            }
+            .table-sections{
+                text-align: left;
+                padding-left: 12px;
+                padding-top: 1px;
+                font-size: 9px;
+            }
+            .rating-td {
+                padding-top: 4px; 
+                font-size: larger;  
+                text-align: right; 
+                text-decoration: underline; 
+                font-weight: bold;
+            }
+            .pax-td {
+                text-align: left; 
+                padding-left: 20px;
+            }
+            .pax-td1 {
+                text-align: center; 
+            }
+            .taskk-td {
+                border-left: 0.5px solid black; 
+                height: 22.3px
+            }
+            .center-td {
+                padding-top: 3px; 
+                font-size: 9px;
+            }
+            .image-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-evenly; 
+                align-items: flex-start;
+                padding: 20px; 
+            }
+            .image-set {
+                margin: 10px; 
+                flex: 0 0 auto;  
+            }
+            .image {
+                width: 100px;
+                height: 100px;
+                object-fit: cover;
+            }
+        </style>
+    </head>
+
+    <div class="container">
+        <h4>
+            <u><center>DAILY BUYER'S EVALUATION SHEET</center></u>
+        </h4>
+        <table class="table">
+            <tr style="width: 100%">
+                <td style="width: 15%">
+                    <b>Name of work:</b>
+                </td>
+                <td colspan="2" class="td">
+                    <b>{{ station.name_of_work }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Cleaning Contract by:</b>
+                </td>
+                <td colspan="2" class="td">
+                    <b> {{ station.contract_by }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Contract No.:</b>
+                </td>
+                <td colspan="2" class="td">
+                    <b>{{ station.contract_no }}</b>
+                </td>
+            </tr>
+            <tr colspan="3">
+                <td style="padding-top: 4px;">
+                    <b>DATE: {{ formatted_date }}</b>
+                </td>
+                <td class="rating-td">Daily Buyer's rating</td>
+                <td style="text-align: right;">
+                    <b>Downloaded Date: {{ date }}</b>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="table-responsive container-fluid">
+        <table        
+            id="table"
+            class="table table-bordered"
+            style="font-size: 0.7rem; 
+            border-spacing: 0;
+            border-collapse: collapse"
+            cellspacing="0"
+            width="100%"
+            align="center"
+            border=".5"
+            cellpadding="0">
+            <thead class="bg-dark text-white">
+                <tr>
+                    <th rowspan="2" style="width: 2%">S No.</th>
+                    <th rowspan="2" style="width: 35%">Description</th>
+                    <th rowspan="2">Type Of Services</th>
+                    <th rowspan="2" style="width: 5%; padding-top:1px;">
+                        Cleaning Cycles
+                        <br />
+                        (days)
+                        <br />
+                        in 02
+                        <br />
+                        years
+                    </th>
+                    <th rowspan="2" style="width: 6%;">Type of cycle</th>
+                    <th rowspan="2" style="width: 6%">
+                        Cleaning Frequency
+                        <br />
+                        per
+                        <br />
+                        cycle (day)
+                    </th>
+                    <th rowspan="1">I</th>
+                    <th rowspan="1">II</th>
+                    <th rowspan="1">Remarks</th>
+                </tr>
+                <tr>
+                    <th rowspan="1" style="width: 5%">
+                        Max.
+                        <br />
+                        Buyer's
+                        <br />
+                        Rating
+                    </th>
+                    <th rowspan="1" style="width: 5%">
+                        Buyer's
+                        <br />
+                        Rating (out of 4)
+                        <br>
+                        {% if timing %}
+                            <hr>
+                            {{ timing }}
+                        {% endif %}
+                    </th>
+                </tr>   
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="" style="text-align: left;">
+                        <center>
+                            <h6>A</h6>
+                        </center>
+                    </td>
+                    <td class="table-sections" colspan="8">
+                        <b>
+                            <h6>Cleaning, Sanitation & Disinfection of 95 nos. of B, D & E Category stations (For {{ station.station_name }} station)</h6>
+                        </b>
+                    </td>
+                </tr>
+                {% for task, max_rating, ratings, ratings_num in tasks %}
+                    <tr>
+                        <td><center>{{ forloop.counter }}</center></td>
+                        <td><center>{{ task.task_description }}</center></td>
+                        <td><center><div style="padding-top:4px">{{ task.service_type }}</div></center></td>
+                        <td><center>{{ task.cleaning_cycle_days }}</center></td>
+                        <td><center>
+                            <div style="padding-top:2px">
+                            {% if task.get_cleaning_cycle_type_display == "Alternately" %}
+                                Once in 2 days
+                            {% else %}
+                                {{ task.get_cleaning_cycle_type_display }}
+                            {% endif %}
+                        </center></div></td>
+                        <td><center>{{ task.cleaning_cycle_day_freq }}</center></td>
+                        <td><center>{{ max_rating }}</center></td>
+                        <td>
+                            <center>
+                                <table style="width:100%">
+                                    {% for rating in ratings %}
+                                        <td style="width: {{ ratings_num }}%;height:30px;{% if not forloop.last %}border-right: 1px solid black;{% endif %};">
+                                            {{ rating }}
+                                        </td>
+                                    {% endfor %}
+                                </table>
+                            </center>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% if colony %}
+                    <tr>
+                        <td class="center-td" style="text-align: left;">
+                            <center>
+                                <h6>B</h6>
+                            </center>
+                        </td>
+                        <td class="table-sections" colspan="8">
+                            <b>
+                                <h6>Cleaning, Sanitation and Disinfection services of 3 nos. of 3 nos. of colonies i.e. Lakhisaral, Jahanabad, Guljiarbagh Colony  (For___________Colony)</h6>
+                            </b>
+                        </td>
+                    </tr>
+                
+                    {% for task, max_rating, ratings in tasks %}
+                        <tr>
+                            <td><center>{{ forloop.counter }}</center></td>
+                            <td><center>{{ task.task_description }}</center></td>
+                            <td><center>{{ task.service_type }}</center></td>
+                            <td><center>{{ task.cleaning_cycle_days }}</center></td>
+                            <td><center>{{ task.get_cleaning_cycle_type_display }}</center></td>
+                            <td><center>{{ task.cleaning_cycle_day_freq }}</center></td>
+                            <td><center>{{ max_rating }}</center></td>
+                            <td><center>
+                            {% for rating in ratings %}
+                                {{ rating }}
+                            {% endfor %}
+                        </center></td> 
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                <tr>
+                    <td colspan="6" style="text-align: center;">Total </td>
+                    <td><center>{{ total_max_ratings }}</center></td>
+                    <td><center>{{ ratings_sum }}</center></td>
+                </tr>
+                <tr>
+                    <td colspan="7" style="text-align: center;">Buyer’s daily average rating in percentage = Total in column IIx100/ Total in Column I </td>
+                    <td><center>{{ avg_rating }}%</center></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <table style="width: 100%; margin-top:50px">
+        <tr style="width: 100%">
+            <td style="font-weight: 600; font-size: 9px; width: 500%;">
+                <p>
+                    <h3 style=" color: green;">
+                        {% for verified_shift in verified_shifts %}
+                            {% with verified_shift.verified_by as verified_by %}
+                                {% if verified_by.user_type.name == "supervisor" or verified_by.user_type.name == "chi_sm" %}
+                                    verified by {{ verified_by.username }}
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </h3>
+                    Signature of CHI/SSE/JE
+                </p>
+                
+            
+            </td>
+            <td style="font-weight: 600; font-size: 9px; width: 50%;">
+                <p>
+                    <h3 style="color: green;">
+                        {% for verified_shift in verified_shifts %}
+                            {% with verified_shift.verified_by as verified_by %}
+                                {% if verified_by.user_type.name == "contractor" %}
+                                    verified by {{ verified_by.username }}
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </h3>
+                    Signature of Contractor/Authorized Signatory
+                </p>
+            
+            </td>
+        </tr>
+    </table>
+
+    <div class="container">
+        {% if showimages %}
+            <hr>
+            {% for task_images in images %}
+                <table class="table">
+                    <tr style="width: 100%">
+                        <td>
+                            <h2>Task No: {{ forloop.counter }} {% if not task_images %} <span style="color: red;"> NIL </span>{% endif %}</h2> 
+                        </td>
+                        {% for occur_image_sets in task_images %}
+                            <td style="font-weight: bold; padding-top: 20px;">
+                                <u>Occurrence No: {{ forloop.counter }}</u> {% if not occur_image_sets %} <span style="color: red;">No Images</span>{% endif %}<br/><br/>
+                                {% for image in occur_image_sets %}
+                                    {% if is_prod %}
+                                        <img class="image img-fluid mr-2" src="{{ image.image.url }}" alt="Image"><br/>
+                                    {% else %}
+                                        <img class="image img-fluid mr-2" src="{{ image.image.path }}" alt="Image"><br/><br/>
+                                    {% endif %}
+                                    <b> Uploaded By: </b> {{ image.user_name }} <br>
+                                    <b> Uploaded At: </b> {{ image.created_at }} <br>
+                                    <b> Uploaded From: </b> {{ image.latitude }}, {{ image.longitude }} <br/>
+                                {% endfor %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                </table>
+                <hr>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+{% endblock %}

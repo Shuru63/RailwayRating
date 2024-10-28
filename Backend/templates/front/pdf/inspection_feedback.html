@@ -1,0 +1,102 @@
+{% block body %}
+
+    <div class="container-fluid">
+        <center>
+            <h1>INSPECTION FEEDBACK FORM FOR STATION CLEANING</h1>
+        </center>
+        <table style="width: 100%">
+            <tr style="width: 100%">
+                <td style="width: 15%">
+                    <b>Name of work:</b>
+                </td>
+                <td style="width: 85%">
+                    <b>{{ station.name_of_work }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Cleaning Contract by:</b>
+                </td>
+                <td>
+                    <b> {{ station.contract_by }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Contract No.:</b>
+                </td>
+                <td>
+                    <b>{{ station.contract_no }}</b>
+                </td>
+            </tr>
+        </table>
+
+        <div class="container">
+            {% if inspection_feedback_data %}
+                <br/> <br/>
+                <table style="width: 100%">
+                    <h1>Feedback</h1>
+                    <hr/>
+                    <tr style="width: 100%">
+                        <td style="width: 15%;">
+                            <b>Date:</b>
+                        </td>
+                        <td>
+                            <b>{{ inspection_feedback_data.date }}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 15%;">
+                            <b>Rating:</b>
+                        </td>
+                        <td>
+                            <b> {{ inspection_feedback_data.rating }}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 15%;">
+                            <b>Remarks:</b>
+                        </td>
+                        <td>
+                            <b>{{ inspection_feedback_data.remarks }}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 15%;">
+                            <b>Raised By:</b>
+                        </td>
+                        <td>
+                            <b>{{ inspection_feedback_data.created_by }}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 15%;">
+                            <b>Raised At:</b>
+                        </td>
+                        <td>
+                            <b>{{ inspection_feedback_data.created_at }}</b>
+                        </td>
+                    </tr>
+                    
+                </table>
+                {% if inspection_feedback_data.feedback_images.all %}
+                    <br/>
+                    <table>
+                        <tr style="width: 100%;">
+                            <td>
+                                {% for image in inspection_feedback_data.feedback_images.all %}
+                                    {% if is_prod %}
+                                        <img src="{{ image.image.url }}" width="200px" height="200px">
+                                    {% else %}
+                                        <img src="{{ image.image.path }}" width="200px" height="200px">
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

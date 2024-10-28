@@ -1,0 +1,153 @@
+{% load custom %}
+{% block body %}
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <style>
+        .container{
+          display: flex; 
+          flex-direction: column; 
+          justify-content: start; 
+          align-items: start;
+        }
+        .container .table{
+          width: 100%;
+        }
+        .td{
+          padding-top: 1px; 
+          padding-left: 1;
+        }
+        .table table-bordered{
+          font-size: 0.7rem;
+          border-spacing: 0;
+          border-collapse: collapse;
+        }
+        .table-sections{
+        text-align: left;
+        padding-left: 12px;
+        padding-top: 1px;
+        font-size: 9px;
+        }
+        .rating-td {
+          padding-top: 4px; 
+          font-size: larger;  
+          text-align: right; 
+          text-decoration: underline; 
+          font-weight: bold;
+        }
+        .pax-td {
+          text-align: left; 
+          padding-left: 20px;
+        }
+        .pax-td1 {
+          text-align: center; 
+        }
+        .taskk-td {
+          border-left: 0.5px solid black; 
+          height: 22.3px
+        }
+        .center-td {
+          padding-top: 3px; 
+          font-size: 9px;
+        }
+        .td-margin{
+          padding-top:5px;
+        }
+      </style>
+    </head>
+    <div class="container">
+      <h4>
+        <u><center>CONSOLIDATED DATA OF BDE STATIONS</center></u>
+      </h4>
+      <table>
+          <tr colspan="3">
+            <td style="padding-top: 4px,padding-righft:15px;">
+              <b>DATE: {{ date }}</b>
+            </td>
+            <td style="text-align: right">
+              <b>Downloaded At: {{ now }}</b>
+            </td>
+          </tr>
+      </table>
+    </div>
+    <div class="table-responsive container-fluid">
+      <table
+        id="table"
+        class="table table-bordered"
+        style="
+          font-size: 0.7rem;
+          border-spacing: 0;
+          border-collapse: collapse;
+        "
+        cellspacing="0"
+        width="100%"
+        align="center"
+        border=".5"
+        cellpadding="0"
+      >
+        <thead class="bg-dark text-white">
+          <tr>
+              <th scope="col" rowspan="1" style="width: 5%">S No.</th>
+              <th scope="col" rowspan="1" style="width: 10%">Station Name</th>
+              <th scope="col" rowspan="1" style="width: 10%">Station Code</th>
+              <th scope="col" rowspan="1" style="width: 10%">Station Category</th>
+              <th scope="col" rowspan="1"  style="width: 12%"> Daily Buyer’s rating <br/>
+                  datewise in % <br/>
+                  (weightage 80%)
+              </th>
+              <th scope="col" rowspan="1"  style="width: 12%;">Daily User/Inspection <br/> 
+                  feedback score in % <br/>
+                  (weightage 20%)
+              </th>
+              <th scope="col" rowspan="1"  style="width: 12%;">Overall Score in % <br/>
+                  (Total 100%)
+              </th>
+              <th scope="col" rowspan="1" style="width: 12%;">Verified by CHI</th>
+              <th scope="col" rowspan="1" style="width: 12%;">Verified by Contractor</th>
+          </tr>
+          <tr>
+              <th scope="row" colspan="4"></th>
+              <th scope="col" rowspan="1">Z</th>
+              <th scope="col" rowspan="1">Y</th>
+              <th scope="col" rowspan="1">(80%*Z)+(20*Y)</th>
+              <th scope="col" rowspan="1">Tick/Cross</th>
+              <th scope="col" rowspan="1">Tick/Cross</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for station in stations_data %}
+              <tr>
+                  <td class="td-margin"><center>{{ forloop.counter }} </center></td>
+                  <td class="td-margin"><center>{{ station.station.station_zone }}</center></td>
+                  <td class="td-margin"><center>{{ station.station.station_name }}</center></td>
+                  <td class="td-margin"><center>{{ station.station.station_category }}</center></td>
+                  <td class="td-margin"><center>{{ station.rating_avg }}</center></td>
+                  <td class="td-margin"><center>{{ station.feedback_avg }}</center></td>
+                  <td class="td-margin"><center>{{ station.overall_score }} </center></td>
+                  <td class="td-margin">
+                    {% if station.chi_verified %}
+                      <center style="font-size: 2rem; color: green;">✓</center>
+                    {% else %}
+                      <center style="font-size: 2rem; color: red;">✘</center>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if station.contra_verified %}
+                      <center style="font-size: 2rem; color: green;"">✓</center>
+                    {% else %}
+                      <center style="font-size: 2rem; color: red;">✘</center>
+                    {% endif %}
+                  </td>
+              </tr>
+          {% endfor %}
+          <tr>
+              <td class="td-margin" colspan="4"><center>Average</td>
+              <td class="td-margin"><center>{{ avg_total_avg_rating }}</center></td>
+              <td class="td-margin"><center>{{ avg_total_avg_feedback }}</center></td>
+              <td class="td-margin"><center>{{ avg_total_overall_score }}</center></td>
+              <td></td>
+              <td></td>
+          </tr>
+        </tbody>  
+      </table>
+    </div>
+{% endblock %}

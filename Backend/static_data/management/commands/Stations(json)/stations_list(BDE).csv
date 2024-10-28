@@ -1,0 +1,96 @@
+station_id,station_zone,station_name,station_category,is_hq,is_chi_sm,HQ,has_indoor_task,has_outdoor_task,is_common,is_active
+111,Dildarnagar,DLN,B,No,Yes,BXR,Yes,Yes,No,Yes
+112,Dumraon,DURE,B,No,Yes,ARA,Yes,Yes,Yes,Yes
+113,Hatidah,HTZ,B,No,Yes,MKA,No,Yes,Yes,Yes
+114,Barhiya,BARH,B,No,Yes,BKP,Yes,Yes,No,Yes
+115,Rajgir,RGD,B,No,Yes,BEHS,Yes,Yes,No,Yes
+116,Biharsharif,BEHS,B,Yes,No,BEHS,Yes,Yes,No,Yes
+117,Jhajha,JAJ,B,Yes,No,JAJ,Yes,Yes,No,Yes
+118,Lakhisarai,LKR,B,No,No,KIUL,Yes,Yes,No,Yes
+119,JEHANABAAD,JHD,D,Yes,No,JHD,Yes,Yes,No,Yes
+120,TAREGNA,TEA,D,No,Yes,JHD,Yes,Yes,Yes,Yes
+121,JEHANABAAD COURT,JHDC,D,No,Yes,NONE,Yes,Yes,Yes,No
+122,Bihiya,BEA,D,No,Yes,ARA,Yes,Yes,No,Yes
+123,Raghunathpur,RPR,D,No,Yes,ARA,Yes,Yes,Yes,Yes
+124,Zamaniya,ZNA,D,No,Yes,BXR,Yes,Yes,Yes,Yes
+125,Nawada,NWD,D,Yes,No,NWD,Yes,Yes,Yes,Yes
+126,Sheikhpura,SHK,D,No,Yes,NWD,Yes,Yes,Yes,Yes
+127,Warisaligunj,WRS,D,No,Yes,NWD,No,Yes,Yes,Yes
+128,Ekangarsarai,EKR,D,No,Yes,PNC,Yes,Yes,Yes,Yes
+129,Harnaut,HRT,D,No,Yes,BEHS,No,Yes,Yes,Yes
+130,Islampur,IPR,D,No,Yes,PNC,No,Yes,Yes,Yes
+131,Bihta,BTA,D,No,Yes,DNR,Yes,Yes,No,Yes
+132,Khusropur,KOO,D,No,Yes,BKP,Yes,Yes,No,Yes
+133,Gulzarbagh,GZH,D,No,Yes,PNC,Yes,Yes,No,Yes
+134,Fatuha,FUT,D,No,Yes,PNC,Yes,Yes,No,Yes
+135,Barhiya,BRYA,D,No,Yes,MKA,No,Yes,Yes,Yes
+136,Gidhaur,GHR,D,No,Yes,JAJ,Yes,Yes,Yes,Yes
+137,Mananpur,MNP,D,No,Yes,KIUL,No,Yes,Yes,Yes
+138,BELA,BELA,E,No,Yes,JHD,Yes,Yes,Yes,Yes
+139,MUKDUMPUR,MDE,E,No,Yes,JHD,Yes,Yes,Yes,Yes
+140,CHAKAND,CKH,E,No,Yes,JHD,Yes,Yes,Yes,Yes
+141,NADWUAL,NDU,E,No,Yes,JHD,Yes,Yes,Yes,Yes
+142,PARSA BAZAR,PRBZ,E,No,Yes,JHD,Yes,Yes,Yes,Yes
+143,POTHAHI,PFT,E,No,Yes,JHD,Yes,Yes,Yes,Yes
+144,PUNPUN,PPN,E,No,Yes,NONE,Yes,Yes,Yes,Yes
+145,TEHTA,THA,E,No,Yes,JHD,Yes,Yes,Yes,Yes
+146,NADWAN,NDW,E,No,Yes,JHD,Yes,Yes,Yes,Yes
+147,PUNPUN GHAT,PNUG,E,No,Yes,JHD,Yes,Yes,Yes,No
+148,Baruna,BUA,E,No,Yes,ARA,No,Yes,Yes,Yes
+149,Bhadaura,BWH,E,No,Yes,BXR,Yes,Yes,Yes,Yes
+150,Chausa,CSA,E,No,Yes,BXR,Yes,Yes,Yes,Yes
+151,Darauli,DRV,E,No,Yes,BXR,Yes,Yes,Yes,Yes
+152,Dheena,DHA,E,No,Yes,BXR,Yes,Yes,Yes,Yes
+153,Gahmar,GMR,E,No,Yes,BXR,Yes,Yes,Yes,Yes
+154,Karisath,KRS,E,No,Yes,ARA,No,Yes,Yes,Yes
+155,Kuchman,KCA,E,No,Yes,BXR,No,Yes,Yes,Yes
+156,Shakaldiha,SLD,E,No,Yes,BXR,Yes,Yes,Yes,Yes
+157,Tulsi Asharam,TLAM,E,No,Yes,NONE,Yes,Yes,Yes,No
+158,Twining Ganj,TWG,E,No,Yes,ARA,Yes,Yes,Yes,Yes
+159,Tarighat,TRG,E,No,Yes,BXR,Yes,Yes,Yes,Yes
+160,Jamuawan,JWN,E,No,Yes,NONE,Yes,Yes,Yes,No
+161,Karjara,KRJR,E,No,Yes,NWD,Yes,Yes,Yes,Yes
+162,Kashichak,KSC,E,No,Yes,NWD,No,Yes,Yes,Yes
+163,Sirari,SRY,E,No,Yes,NWD,Yes,Yes,Yes,Yes
+164,Tilaiya,TIA,E,No,Yes,NWD,Yes,Yes,Yes,Yes
+165,WazerGanj,WZJ,E,No,Yes,NWD,Yes,Yes,Yes,Yes
+166,Karota Patri,KRTR,E,No,Yes,NWD,Yes,Yes,Yes,Yes
+167,Paimar,PMI,E,No,Yes,NWD,Yes,Yes,Yes,Yes
+168,Daniyawan,DHWN,E,No,Yes,PNC,No,Yes,Yes,Yes
+169,Hilsa,HIL,E,No,Yes,PNC,No,Yes,Yes,Yes
+170,Nalanda,NLD,E,No,Yes,BEHS,No,Yes,Yes,Yes
+171,Silao,SILO,E,No,Yes,NONE,Yes,Yes,Yes,No
+172,Wena,WENA,E,No,Yes,BEHS,No,Yes,Yes,Yes
+173,Pawapuri,POE,E,No,Yes,BEHS,No,Yes,Yes,Yes
+174,Karnauti Halt,KRNN,E,No,Yes,NONE,Yes,Yes,Yes,No
+175,JETHIAN,JTIN,E,No,Yes,BEHS,Yes,Yes,Yes,Yes
+176,ORO,ORO,E,No,Yes,NONE,Yes,Yes,Yes,No
+177,Nateshar,NES,E,No,Yes,PNC,Yes,Yes,Yes,Yes
+178,Sigryawan,SGYN,E,No,Yes,NONE,Yes,Yes,Yes,No
+179,Katari,KTRI,E,No,Yes,PNC,Yes,Yes,Yes,Yes
+180,Khudaganj,KDJ,E,No,Yes,PNC,Yes,Yes,Yes,Yes
+181,Kulhariya,KUA,E,No,Yes,DNR,Yes,Yes,Yes,Yes
+182,Neora,NEO,E,No,Yes,DNR,Yes,Yes,Yes,Yes
+183,Karauta,KWO,E,No,Yes,BKP,No,Yes,Yes,Yes
+184,Teka Bigha,TKBG,E,No,Yes,BKP,No,Yes,Yes,Yes
+185,Athmal Gola,ATL,E,No,Yes,BKP,Yes,Yes,Yes,Yes
+186,Punarakh,PHK,E,No,Yes,MKA,No,Yes,Yes,Yes
+187,Mor,MOR,E,No,Yes,MKA,No,Yes,Yes,Yes
+188,Phulwari Sharif,PWS,E,No,Yes,DNR,Yes,Yes,Yes,Yes
+189,Banka Ghat,BKG,E,No,Yes,PNC,No,Yes,Yes,Yes
+190,Sadisopur,SDE,E,No,Yes,DNR,Yes,Yes,Yes,Yes
+191,Koilwar,KWR,E,No,Yes,DNR,Yes,Yes,Yes,Yes
+192,Bakthiyarpur Link,BKPL,E,No,Yes,BKP,No,Yes,Yes,Yes
+193,Sachivalay,SCY,E,No,Yes,NONE,Yes,Yes,Yes,No
+194,Block Hut C,BHC,E,No,Yes,DNR,Yes,Yes,Yes,Yes
+195,Bansipur,BSQP,E,No,Yes,KIUL,No,Yes,Yes,Yes
+196,Bhalui,BFM,E,No,Yes,NONE,Yes,Yes,Yes,No
+197,Choura,CUX,E,No,Yes,NONE,Yes,Yes,Yes,No
+198,Dadpur,DPX,E,No,Yes,NONE,Yes,Yes,Yes,No
+199,Mankatha,MKB,E,No,Yes,MKA,No,Yes,Yes,Yes
+200,Rajandra Pul,RJO,E,No,Yes,MKA,No,Yes,Yes,Yes
+201,Rampur Dumra,RDUM,E,No,Yes,MKA,No,Yes,Yes,Yes
+202,Tall,TAL,E,No,Yes,MKA,Yes,Yes,Yes,No
+203,Hathidah upper ( Link),LINK,E,No,Yes,MKA,No,Yes,Yes,Yes
+204,Banahi,BYN,E,No,Yes,ARA,No,Yes,Yes,Yes
+205,Baghi Bardiha,BBE,E,No,Yes,NONE,Yes,Yes,Yes,No

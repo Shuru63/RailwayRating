@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Monthly Summary BDE</title>
+    <style>
+        .table table-bordered {
+          border-spacing: 0;
+          border-collapse: collapse;
+        }
+        .bg-dark text-white {
+          font-size: 15px !important;
+        }
+        .table static-value {
+          width: 10%;
+        }
+    
+        .tr-block th{
+            font-size: x-large;
+          }
+          .table  table-bordered{
+            font-size:0.7 rem;
+            border-spacing: 0;
+             border-collapse: collapse; 
+             margin-top: 50px;
+          }
+          .bg-dark text-whitestyle{
+            font-size: 15px !important;
+          }
+          .td-block2{
+            font-size:large;
+          }
+          .table table-values{
+            font-size:large; 
+            color: #0040ff;
+          }
+          .table table-total{
+            padding: 1px; 
+            font-size: 13px;
+          }
+     </style>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<body>
+    <div>
+        <center>
+            <h1>
+                <u>MONTHLY BUYER'S EVALUATION SHEET</u>
+            </h1>
+        </center>
+        <table style="width: 100%">
+            <tr style="width: 100%">
+                <td style="width: 15%">
+                    <b>Name of work:</b>
+                </td>
+                <td style="width: 85%">
+                    <b>{{ station.name_of_work }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Cleaning Contract by:</b>
+                </td>
+                <td>
+                    <b> {{ station.contract_by }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Contract No.:</b>
+                </td>
+                <td>
+                    <b>{{ station.contract_no }}</b>
+                </td>
+            </tr>
+        </table>
+
+        <center>
+            <h2>Buyer's Average Rating</h2>
+        </center>
+
+        <div>
+            <table>
+                <tr colspan="3">
+                    <td style="padding-top: 4px;">
+                        <b>Download At: {{ now }} </b>
+                    </td>
+                    <td style="text-align: right;">
+                        <b>Month: {{ month_name }}</b>
+                    </td>
+                </tr>
+            </table>
+            <table id="table"
+                    class="table table-bordered"
+                    cellspacing="0"
+                    width="100%"
+                    align="center"
+                    border=".5"
+                    cellpadding="3px">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th rowspan="2">S.NO</th>
+                        <th rowspan="2">DATE</th>
+                        <th rowspan="1">Daily Buyer's rating date wise in % (weightage 80%)</th>
+                        <th rowspan="1">Daily User/Inspection feedback score in % (weightage 20%)</th> 
+                        <th rowspan="1">Overall Score in % ( Total 100%) </th>
+                        <th rowspan="2">Weekly Average rating in %</th>
+                    </tr>
+                    <tr>
+                        <th rowspan="1">Z</th>
+                        <th rowspan="1">Y</th>
+                        <th rowspan="1">(80%*Z)+(20*Y)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in monthly_data %}
+                        <tr>
+                            <td scope="col" rowspan="1" class="table static-value">
+                                <center>{{ forloop.counter }}</center>
+                            </td>
+                            <td scope="col" rowspan="1" class="table-values">
+                                <center>{{ data.date }}</center>
+                            </td>
+                            <td scope="col" rowspan="1" class="table-values">
+                                <center>{{ data.daily_buyers_avg_rating }}</center>
+                            </td>
+                            <td scope="col" rowspan="1" class="table-values">
+                                <center>{{ data.daily_feedback_total_avg }}</center>
+                            </td>
+                            <td scope="col" rowspan="1" class="table-values">
+                                <center>{{ data.total_daily_score }}</center>
+                            </td>
+                            {% if data.seven_days_avg_eval %}
+                            <td scope="col" rowspan="7" class="table-values">
+                                <center>{{ data.seven_days_avg_eval }}</center>
+                            </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td scope="col" rowspan="1" class="table-values"></td>
+                        <td scope="col" rowspan="1" class="table-values" style="font-size: 10px">Total</td>
+                        <td scope="col" rowspan="1" class="table-values" style="font-size: 10px">{{ avg_total_buyers_rating }}</td>                 
+                        <td scope="col" rowspan="1" class="table-values" style="font-size: 10px">{{ avg_total_feedback_score }}</td> 
+                        <td scope="col" rowspan="1" class="table-values" style="font-size: 10px">sum(a, ae)  * 100/ count of days in this month <br>{{ avg_total_daily_eval }}</td> 
+                        <td scope="col" rowspan="1" class="table-values"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <table style="width: 100%; margin-top:50px">
+        <tr style="width: 100%">
+            <td style="font-weight: 600; font-size: 9px; width: 30%;"> Signature of CHI/SSE/JE (shift 6-14)</td>
+            <td style=" color: green; width: 22.5%;">
+                {% for verified_shift in verified_shifts %}
+                    {% with verified_shift.verified_by as verified_by %}
+                        {% if verified_by.user_type.name == "supervisor" and verified_shift.shift.shift_id == 1 %}
+                            verified by {{ verified_by.username }}
+                        {% endif %}
+                    {% endwith %}
+                {% endfor %}
+            </td>
+            <td style="font-weight: 600; font-size: 9px; width: 30%;"> Signature of Contractor/Authorized Signatory</td>
+            <td style="color: green; width: 22.5%;">
+                {% for verified_shift in verified_shifts %}
+                    {% with verified_shift.verified_by as verified_by %}
+                        {% if verified_by.user_type.name == "contractor" and verified_shift.shift.shift_id == 1 %}
+                            verified by {{ verified_by.username }}
+                        {% endif %}
+                    {% endwith %}
+                {% endfor %}
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        <pdf:nextpage />
+    </div>
+
+    <div>
+        <center>
+            <h2> <br>
+                <u>WEEKLY PERFORMANCE EVALUATION SHEET </u>
+            </h2>
+        </center>
+        <table style="width: 100%">
+            <tr style="width: 100%">
+                <td style="width: 15%">
+                    <b>Name of work:</b>
+                </td>
+                <td style="width: 85%">
+                    <b>{{ station.name_of_work }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Cleaning Contract by:</b>
+                </td>
+                <td>
+                    <b> {{ station.contract_by }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Contract No.:</b>
+                </td>
+                <td>
+                    <b>{{ station.contract_no }}</b>
+                </td>
+            </tr>
+        </table><br/>
+        <table id="table"
+               class="table table-bordered"
+               cellspacing="0"
+               width="100%"
+               align="center"
+               border=".5"
+               cellpadding="7px">
+            <thead class="bg-dark text-white">
+                <th scpoe="col" colspan="6">Weekly performance evaluation ({{ start_date }} to {{ end_date }})</th>
+                <tr class="tr-block">
+                    <th scope="col" rowspan="0">Weekly period</th>
+                    <th scope="col" rowspan="0">Performance Evaluation</th>
+                    <th scope="col" rowspan="0">Score Achieved</th>
+                    <th scope="col" rowspan="0">Weightage</th>
+                    <th scope="col" rowspan="0">Final Score</th>
+                    <th scope="col" rowspan="0">Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="3" style="text-align: center;">1-7th {{ month_name }}</td>
+                    <td class="td-block2">
+                        <center>Buyer's Evaluation</center>
+                    </td>
+                    <td class="table table-values">
+                        <center>{{ weekly_avg_rating.0 }}</center>
+                    </td>
+                    <td>
+                        <center style="font-size: 14px">80%</center>
+                    </td>
+                    <td class="table table-values">
+                        <center>{{ weekly_data.0.rating }}</center>
+                    </td>
+                    <td rowspan="3"></td>
+                </tr>
+                <tr>
+                    <td class="td-block2">
+                        <center>
+                            User/Inspection
+                            Feedbaack Evaluation
+                        </center>
+                    </td>
+                    <td>
+                        <center class="table table-values">{{ weekly_avg_feedback.0 }}</center>
+                    </td>
+                    <td>
+                        <center style="font-size: 14px">20%</center>
+                    </td>
+                    <td>
+                        <center class="table table-values">{{ weekly_data.0.feedback }}</center>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td colspan="3" class="table table-total">
+                        <center>Total</center>
+                    </td>
+                    <td>
+                        <center class="table table-values">{{ weekly_data.0.total }}</center>
+                    </td>
+                    
+                </tr>
+                
+                <tr>
+                    <td rowspan="3" style="text-align: center;">8-14th {{ month_name }}</td>
+                    <td class="td-block2">
+                        <center>Buyer's Evaluation</center>
+                    </td>
+                    <td class="table table-values">
+                        <center>{{ weekly_avg_rating.1 }}</center>
+                    </td>
+                    <td>
+                        <center style="font-size: 14px">80%</center>
+                    </td>
+                    <td class="table table-values">
+                        <center>{{ weekly_data.1.rating }}</center>
+                    </td>
+                    <td rowspan="3"></td>
+                </tr>
+                <tr>
+                    <td class="td-block2">
+                        <center>
+                            User/Inspection
+                            Feedbaack Evaluation
+                        </center>
+                    </td>
+                    <td>
+                        <center class="table table-values">{{ weekly_avg_feedback.1 }}</center>
+                    </td>
+                    <td>
+                        <center style="font-size: 14px">20%</center>
+                    </td>
+                    <td>
+                        <center class="table table-values">{{ weekly_data.1.feedback }}</center>
+                    </td>
+                   
+                </tr>
+                <tr>
+                    <td colspan="3" class="table table-total">
+                        <center>Total</center>
+                    </td>
+                    <td>
+                        <center class="table table-values">{{ weekly_data.1.total }}</center>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td rowspan="3" style="text-align: center;">15-21th {{ month_name }}</td>
+                    <td class="td-block2">
+                        <center>Buyer's Evaluation</center>
+                    </td>
+                    <td class="table table-values">
+                        <center>{{ weekly_avg_rating.2 }}</center>
+                    </td>
+                    <td>
+                        <center style="font-size: 14px">80%</center>
+                    </td>
+                    <td class="table table-values">
+                        <center>{{ weekly_data.2.rating }}</center>
+                    </td>
+                    <td rowspan="3"></td>
+                </tr>
+                <tr>
+                    <td class="td-block2">
+                        <center>
+                            User/Inspection
+                            Feedbaack Evaluation
+                        </center>
+                    </td>
+                    <td>
+                        <center class="table table-values">{{ weekly_avg_feedback.2 }}</center>
+                    </td>
+                    <td>
+                        <center style="font-size: 14px">20%</center>
+                    </td>
+                    <td>
+                        <center class="table table-values">{{ weekly_data.2.feedback }}</center>
+                    </td>
+                   
+                </tr>
+                <tr>
+                    <td colspan="3" class="table table-total">
+                        <center>Total</center>
+                    </td>
+                    <td>
+                        <center class="table table-values">{{ weekly_data.2.total }}</center>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3" style="text-align: center;">22-28th {{ month_name }}</td>
+                    <td class="td-block2">
+                        <center>Buyer's Evaluation</center>
+                    </td>
+                    <td class="table table-values">
+                        <center>{{ weekly_avg_rating.3 }}</center>
+                    </td>
+                    <td>
+                        <center style="font-size: 14px">80%</center>
+                    </td>
+                    <td class="table table-values">
+                        <center>{{ weekly_data.3.rating }}</center>
+                    </td>
+                    <td rowspan="3"></td>
+                </tr>
+                <tr>
+                    <td class="td-block2">
+                        <center>
+                            User/Inspection
+                            Feedbaack Evaluation
+                        </center>
+                    </td>
+                    <td>
+                        <center class="table table-values">{{ weekly_avg_feedback.3 }}</center>
+                    </td>
+                    <td>
+                        <center style="font-size: 14px">20%</center>
+                    </td>
+                    <td>
+                        <center class="table table-values">{{ weekly_data.3.feedback }}</center>
+                    </td>
+                   
+                </tr>
+                <tr>
+                    <td colspan="3" class="table table-total">
+                        <center>Total</center>
+                    </td>
+                    <td>
+                        <center class="table table-values">{{ weekly_data.3.total }}</center>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+            <br/>
+            <table id="table"
+               class="table table-bordered"
+               cellspacing="0"
+               width="100%"
+               align="center"
+               border=".5"
+               cellpadding="7px">
+                <thead class="bg-dark text-white">
+                    <th scope="col" colspan="5">Performance evaluation for calculation of Payment ({{ start_date }} to {{ end_date }})</th>
+                    <tr class="tr-block">
+                        <th scope="col" rowspan="1">Performance Evaluation</th>
+                        <th scope="col" rowspan="1">Score Achieved</th>
+                        <th scope="col" rowspan="1">Weightage</th>
+                        <th scope="col" rowspan="1">Final Score</th>
+                        <th scope="col" rowspan="1">Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="td-block2">
+                            <center>Buyers Evaluation</center>
+                        </td>
+                        <td class="table table-values">
+                            <center>{{ avg_total_buyers_rating }}</center>
+                        </td>
+                        <td>
+                            <center style="font-size: 14px">80%</center>
+                        </td>
+                        <td class="table table-values">
+                            <center>{{ final_buyers_score }}</center>
+                        </td>
+                        <td rowspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td class="td-block2">
+                            <center>
+                                User/Inspection
+                                Feedbaack Evaluation
+                            </center>
+                        </td>
+                        <td>
+                            <center class="table table-values">{{ avg_total_feedback_score }}</center>
+                        </td>
+                        <td>
+                            <center style="font-size: 14px">20%</center>
+                        </td>
+                        <td>
+                            <center class="table table-values">{{ final_feedback_score }}</center>
+                        </td>
+                      
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="table table-total">
+                            <center>Total</center>
+                        </td>
+                        <td>
+                            <center class="table table-values">{{ final_buyers_feedback_sum }}</center>
+                        </td>
+                       
+                    </tr>
+                </tbody>
+           </table>  
+           <table style="width: 100%; margin-top:30px">
+            <tr style="width: 100%">
+                <td style="font-weight: 600; font-size: 9px; width: 30%;"> Signature of CHI/SSE/JE (shift 6-14)</td>
+                <td style=" color: green; width: 22.5%;">
+                    {% for verified_shift in verified_shifts %}
+                        {% with verified_shift.verified_by as verified_by %}
+                            {% if verified_by.user_type.name == "supervisor" and verified_shift.shift.shift_id == 1 %}
+                                verified by {{ verified_by.username }}
+                            {% endif %}
+                        {% endwith %}
+                    {% endfor %}
+                </td>
+                <td style="font-weight: 600; font-size: 9px; width: 30%;"> Signature of Contractor/Authorized Signatory</td>
+                <td style="color: green; width: 22.5%;">
+                    {% for verified_shift in verified_shifts %}
+                        {% with verified_shift.verified_by as verified_by %}
+                            {% if verified_by.user_type.name == "contractor" and verified_shift.shift.shift_id == 1 %}
+                                verified by {{ verified_by.username }}
+                            {% endif %}
+                        {% endwith %}
+                    {% endfor %}
+                </td>
+            </tr>
+        </table>
+        
+    </div>
+     
+</body>
+</html>

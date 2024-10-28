@@ -1,0 +1,19 @@
+{% autoescape off %}
+Hello Admin,
+
+{% if role != 'officer' %}
+You have received a request for SignUp from {{first_name}} for {{station}} Station for the Role of {{role}}.
+{% else %}
+You have received a request for SignUp from {{first_name}} for the Role of {{role}}.
+{% endif %}
+
+Email: {{email}}
+Phone: {{phone}}
+
+Please Login to your Admin account to APPROVE/DENY the request. 
+{{ protocol }}://{{domain}}
+
+Sincerely,
+The Website Team
+
+{% endautoescape %}

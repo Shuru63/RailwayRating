@@ -1,0 +1,246 @@
+{% load custom %}
+{% block body %}
+    {% load static %}
+    <head>
+        <style>
+    .textp12 {
+      font-size: large; 
+      font-weight: bold; 
+      margin-top: 12px;
+    }
+    .EvaTable {
+      font-size: 0.7rem; 
+      border-spacing: 0;
+      border-collapse: collapse;
+      margin-top: 28px; 
+      margin-bottom: 28px;
+      width: 100%;
+    }
+    .td-centerp12 {
+      font-size: large; 
+      color: #0040ff;
+    }
+    .Signature-table{
+      margin-top: 100px;
+      width: 100%;
+      text-align: center;
+    }
+        </style>
+    </head>
+    <div>
+        <center>
+            <h2>
+                <u>DAILY EVALUATION SHEET FOR DEDUCTION PURPOSE </u>
+            </h2>
+        </center>
+        <table style="width: 100%">
+            <tr style="width: 100%">
+                <td style="width: 15%">
+                    <b>Name of work:</b>
+                </td>
+                <td style="width: 85%">
+                    <b>{{ station.name_of_work }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Cleaning Contract by:</b>
+                </td>
+                <td>
+                    <b> {{ station.contract_by }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Contract No.:</b>
+                </td>
+                <td>
+                    <b>{{ station.contract_no }}</b>
+                </td>
+            </tr>
+        </table>
+        <table id="table"
+               class="EvaTable"
+               align="center"
+               border=".5"
+               cellpadding="7px">
+            <thead class="bg-dark text-white">
+                <tr style="font-size: x-large">
+                    <th scope="col" rowspan="0">Daily</th>
+                    <th scope="col" rowspan="0">Performance Evaluation</th>
+                    <th scope="col" rowspan="0">Score Achieved</th>
+                    <th scope="col" rowspan="0">Weightage</th>
+                    <th scope="col" rowspan="0">Final Score</th>
+                    <th scope="col" rowspan="0">Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="2" style="text-align: center;">{{ formatted_date }}</td>
+                    <td>
+                        <center style="font-size: large;">Buyer's Evaluation</center>
+                    </td>
+                    <td>
+                        <center class="td-centerp12">{{ daily_buyers_eval }}</center>
+                    </td>
+                    <td>
+                        <center style="font-size: 14px">80%</center>
+                    </td>
+                    <td>
+                        <center class="td-centerp12">{{ daily_buyers_eval_score }}</center>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <center style="font-size: large">
+                            User/Inspection
+                            Feedback Evaluation
+                        </center>
+                    </td>
+                    <td>
+                        <center class="td-centerp12">{{ feedback_total_daily }}</center>
+                    </td>
+                    <td>
+                        <center style="font-size: 14px">20%</center>
+                    </td>
+                    <td>
+                        <center class="td-centerp12">{{ feedback_total_daily_score }}</center>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="padding: 1px; font-size: large">
+                        <center>Total</center>
+                    </td>
+                    <td>
+                        <center class="td-centerp12">{{ total_daily_eval }}</center>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        {% if accepted_daily_rate == 0.0 %}
+            <p class="textp12">
+                No daily accepted amount set for the station {{ station_name }}, set it to calculate the penalty.
+            </p>
+        {% else %}
+            {% if daily_penalty_applied == 0.0 %}
+                <p class="textp12">
+                    <b>No deduction is applicable for overall score above 85% per day =</b> <span style="color: green;">No Penalty Applied</span>
+                </p>
+            {% else %}
+                <p class="textp12" style="margin-bottom: 76px; margin-top: 36px;">
+                    (i) Deduction @5 % of accepted rate per day (excluding GST) for overall
+                    score between 75% to 85% per day =
+                    {% if deduction_rate == 5 %}
+                        <span style="color: red;">{{ daily_penalty_applied }}</span>
+                        <br />
+                    {% else %}
+                        <span style="color: red; font-size: large;">X</span>
+                        <br />
+                    {% endif %}
+                    (ii) Deduction @7 % of accepted rate per day (excluding GST) for overall
+                    score between 65% to 75% per day =
+                    {% if deduction_rate == 7 %}
+                        <span style="color: red;">{{ daily_penalty_applied }}</span>
+                        <br />
+                    {% else %}
+                        <span style="color: red; font-size: large;">X</span>
+                        <br />
+                    {% endif %}
+                    (iii) Deduction @10 % of accepted rate per day (excluding GST) for overall
+                    score below 65% per day =
+                    {% if deduction_rate == 10 %}
+                        <span style="color: red;">{{ daily_penalty_applied }}</span>
+                        <br />
+                    {% else %}
+                        <span style="color: red; font-size: large;">X</span>
+                        <br />
+                    {% endif %}
+                    {% if deduction_rate != 5 and deduction_rate != 7 and deduction_rate != 10 %}
+                        No values for deduction rate and penalty along with daily accepted rate are provided.
+                    {% endif %}
+                </p>
+            {% endif %}
+        {% endif %}
+        <table style="margin-top: 40px">
+            <table class="Signature-table">
+                <tr>
+                    <td>
+                        <h2>Signature of Concerning /CHI/SSE/JE</h2>
+                    </td>
+                    <td>
+                        <h2>Signature of Contractor/Authorized Signatory of contractor</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h2 style="margin-left: 40px">(Buyer Representative)</h2>
+                    </td>
+                    <td>
+                        <h2>(User Representative)</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <tr>
+                        <!-- {% if sup_evaluation_ver.verification_status %}
+                            <td style="color: green; font-size: 13px;">verified by {{ sup_evaluation_ver.verified_by.username }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                        {% if con_evaluation_ver.verification_status %}
+                            <td style="color: green; font-size: 13px;">verified by {{ con_evaluation_ver.verified_by.username }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %} -->
+
+                        {% if station.station_category == "A" or station.station_category == "A1" %}
+                            <td style="color: green; font-size: 13px;">
+                                {% for verified_shift in verified_shifts %}
+                                    {% with verified_shift.verified_by as verified_by %}
+                                        {% if verified_by.user_type.name == "supervisor" and verified_shift.shift.shift_id == 2 %}
+                                            verified by {{ verified_by.username }}
+                                        {% endif %}
+                                    {% endwith %}
+                                {% endfor %}
+                            </td>
+
+                            <td style="color: green; font-size: 13px;">
+                                {% for verified_shift in verified_shifts %}
+                                    {% with verified_shift.verified_by as verified_by %}
+                                        {% if verified_by.user_type.name == "contractor" and verified_shift.shift.shift_id == 2 %}
+                                            verified by {{ verified_by.username }}
+                                        {% endif %}
+                                    {% endwith %}
+                                {% endfor %}
+                            </td>
+                        {% else %}
+                            <td style=" color: green; font-size: 13px;">
+                                {% for verified_shift in verified_shifts %}
+                                    {% with verified_shift.verified_by as verified_by %}
+                                        {% if verified_by.user_type.name == "supervisor" or verified_by.user_type.name == "chi_sm" %}
+                                            {% if verified_shift.shift.shift_id == 1 or verified_shift.shift.shift_id == 0 %}
+                                                verified by {{ verified_by.username }}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endwith %}
+                                {% endfor %}
+                            </td>
+        
+                            <td style="color: green; font-size: 13px;">
+                                {% for verified_shift in verified_shifts %}
+                                    {% with verified_shift.verified_by as verified_by %}
+                                        {% if verified_by.user_type.name == "contractor" %}
+                                            {% if verified_shift.shift.shift_id == 1 or verified_shift.shift.shift_id == 0 %}
+                                                verified by {{ verified_by.username }}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endwith %}
+                                {% endfor %}
+                            </td>
+                        {% endif %}
+                    </tr>
+                </tr>
+            </table>
+        </div>
+    {% endblock %}

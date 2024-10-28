@@ -1,0 +1,51 @@
+{
+    "task_1": {
+        "station": "BARH",
+        "task_id": 1,
+        "task_type": "A",
+        "service_type": "Indoor Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of Urinals Toilets Booking Office",
+        "cleaning_cycle_days": "730",
+        "cleaning_cycle_type": "D",
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    },
+    "task_2": {
+        "station": "BARH",
+        "task_id": 2,
+        "task_type": "A",
+        "service_type": "Indoor Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of Booking Counter Glass Area",
+        "cleaning_cycle_days": "365",
+        "cleaning_cycle_type": "A", 
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    },
+    "task_3": {
+        "station": "BARH",
+        "task_id": 3,
+        "task_type": "A",
+        "service_type": "Outdoor Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of Water booth ,Drain ,Track with plartform(01 to 04) & All Outdoor area (Remaining)",
+        "cleaning_cycle_days": "730",
+        "cleaning_cycle_type": "D",
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    },
+    "task_4": {
+        "station": "BARH",
+        "task_id": 4,
+        "task_type": "A",
+        "service_type": "Outdoor Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of Track Home to Home signal",
+        "cleaning_cycle_days": "365",
+        "cleaning_cycle_type": "A",
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    }
+
+}

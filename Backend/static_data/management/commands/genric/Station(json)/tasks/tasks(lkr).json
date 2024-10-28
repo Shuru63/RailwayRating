@@ -1,0 +1,26 @@
+{
+    "task_1": {
+        "station": "LKR",
+        "task_id": 1,
+        "task_type": "A",
+        "service_type": "Indoor Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of LKR Railway Court (Court Office area, Hazat + Wakalat khana + PP Room, Toilet + Urinal +Wash basin (Tiles Area) Toilet (Cemented Area), Cob-web area), Building (W/hall + Booking Hall & WRH SM Room), Relay Room, Toilets of offices",
+        "cleaning_cycle_days": "730",
+        "cleaning_cycle_type": "D",
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    },
+    "task_2": {
+        "station": "LKR",
+        "task_id": 2,
+        "task_type": "A",
+        "service_type": "Outdoor  Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of Drain (Circulating Area) Surrounding of Drain Water booth  LKR Railway Court (Open Area (Surroundings)) Track Area, PF Area, Circulating Area, FOB",
+        "cleaning_cycle_days": "730",
+        "cleaning_cycle_type": "D", 
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    }
+}

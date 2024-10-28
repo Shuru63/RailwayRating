@@ -1,0 +1,8 @@
+{% autoescape off %}
+Dear Sir/Madam,
+
+Use {{otp}} as OTP for account {{email}}. OTP valid for 10 mins. Don't share with anyone. 
+
+{{ protocol }}://{{domain}}
+- Powered by Sarva Suvidhaen Pvt Ltd
+{% endautoescape %}

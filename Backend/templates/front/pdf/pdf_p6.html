@@ -1,0 +1,174 @@
+{% load custom %}
+{% block body %}
+    <head>
+        <style>
+    .table  table-bordered{
+      border-spacing: 0;
+       border-collapse: collapse; 
+       margin-top: 50px;
+    }
+    .bg-dark text-whitestyle{
+      font-size: 15px !important;
+    }
+    .table table-values{
+      font-size:large; 
+      color: #0040ff;
+    }
+    .table table-total{
+      padding:5px;
+      font-size: 13px;
+    }
+        </style>
+    </head>
+    <div>
+        <center>
+            <h1>
+                <u>MONTHLY SUMMARY SHEET OF INSPECTION/USER FEEDBACK REGISTER</u>
+            </h1>
+        </center>
+        <center>
+            <h1>(FOR {{ month_name }} MONTH)</h1>
+        </center>
+        <table style="width: 100%">
+            <tr style="width: 100%">
+                <td style="width: 15%">
+                    <b>Name of work:</b>
+                </td>
+                <td style="width: 85%">
+                    <b>{{ station.name_of_work }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Cleaning Contract by:</b>
+                </td>
+                <td>
+                    <b> {{ station.contract_by }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Contract No.:</b>
+                </td>
+                <td>
+                    <b>{{ station.contract_no }}</b>
+                </td>
+            </tr>
+        </table>
+        <center>
+            <h2>Summary of Monthly User/Inspection Feedback</h2>
+        </center>
+        <table id="table"
+               class="table table-bordered"
+               cellspacing="0"
+               width="100%"
+               align="center"
+               border=".5">
+            <thead class="bg-dark text-white">
+                <tr style="padding: 7px">
+                    <th scope="col" rowspan="1">Inspection Feedback</th>
+                    <th scope="col" rowspan="1">
+                        No. of Inspection/User
+                        <br />
+                        Feedbacks
+                        <br />
+                        received
+                    </th>
+                    <th scope="col" rowspan="1">
+                        Inspection/User
+                        <br />
+                        Feedback
+                        <br />
+                        weightage
+                    </th>
+                    <th scope="col" rowspan="1">Scores</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 3px">
+                        <center>Excellent</center>
+                    </td>
+                    <td class="table table-values">
+                        <center> {{ monthly_excellent_count }}</center>
+                    </td>
+                    <td>
+                        <center>100%</center>
+                    </td>
+                    <td class="table table-values">
+                        <center>{{ monthly_excellent_count }}</center>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 3px">
+                        <center>Ok</center>
+                    </td>
+                    <td class="table table-values">
+                        <center> {{ monthly_ok_count }}</center>
+                    </td>
+                    <td>
+                        <center>90%</center>
+                    </td>
+                    <td class="table table-values">
+                        <center>{{ monthly_ok_avg }}</center>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 3px">
+                        <center>Poor</center>
+                    </td>
+                    <td class="table table-values">
+                        <center> {{ monthly_poor_count }}</center>
+                    </td>
+                    <td>
+                        <center>0%</center>
+                    </td>
+                    <td class="table table-values">
+                        <center>0</center>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table table-total">
+                        <center>Total</center>
+                    </td>
+                    <td class="table table-values">
+                        <center>{{ monthly_total_feedbacks }}</center>
+                    </td>
+                    <td></td>
+                    <td class="table table-values">
+                        <center>{{ monthly_total_feedback_score }}</center>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="table table-total">
+                        Weekly User/Inspection score achieved in Percentage = total
+                        scorex100/total no. of feedback
+                    </td>
+                    <td class="table table-values">
+                        <center>{{ monthly_avg_feedback_score }}</center>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table style="margin-top: 100px">
+            <tr>
+                <td>
+                    <h2>Signature of Concerning /CHI/SSE/JE</h2>
+                </td>
+                <td>
+                    <h2>Signature of Contractor/Authorized Signatory of contractor</h2>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2 style="margin-left: 40px">(Buyer Representative)</h2>
+                </td>
+                <td>
+                    <h2>
+                        <center>(User Representative)</center>
+                    </h2>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}

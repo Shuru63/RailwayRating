@@ -1,0 +1,171 @@
+{% load custom %}
+{% block body %}
+    {% for context in context_list %}
+        <h1 style="text-align: center;">{{ context.formatted_current_date }}</h1>
+        {% for taskk in context.task_A %}
+            <table style="font-size: 0.7rem;
+                          border-spacing: 0;
+                          border-collapse: collapse;
+                          border-top: 0.2px solid black;
+                          border-color: #854d0d"
+                   cellspacing="0"
+                   width="100%"
+                   align="center"
+                   cellpadding="0">
+                <tr>
+                    <th colspan="2">Task -: {{ taskk.task.task_id }}</th>
+                </tr>
+                {% for shiftt in context.shift %}
+                    <tr style="border-top-style: dotted; border-color: rgb(71, 173, 84)">
+                        <td style="width: 5%">shift {{ forloop.counter }}</td>
+                        <td align="left">
+                            <table border="0" style="border-color: red">
+                                <tr>
+                                    <th style="color: aliceblue">.</th>
+                                    {% if showimages %}
+                                        {% for media in taskk.task|task_shift_pdf:shiftt|Media:context.date %}
+                                            <th>
+                                                {% if env == 'LOCAL' %}
+                                                    {% if linux_environment %}
+                                                        <img style="width: 80px;
+                                                                    height: 80px"
+                                                             src="{{ media.image.url|slice:'1:' }}"
+                                                             alt="pdf_sorry" />
+                                                    {% else %}
+                                                        <img style="width: 80px;
+                                                                    height: 80px"
+                                                             src="{{ media.image.path }}"
+                                                             alt="pdf_sorry" />
+                                                    {% endif %}
+                                                {% else %}
+                                                    <img style="width: 80px;
+                                                                height: 80px"
+                                                         src="{{ media.image.url }}"
+                                                         alt="pdf_sorry" />
+                                                {% endif %}
+                                                <p>{{ taskk.task.task_id }}{{ shiftt.shift_id }}{{ forloop.counter }}</p>
+                                            </th>
+                                        {% endfor %}
+                                    {% else %}
+                                        <th></th>
+                                    {% endif %}
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
+        {% for taskk in context.task_B %}
+            <table style="font-size: 0.7rem;
+                          border-spacing: 0;
+                          border-collapse: collapse;
+                          border-top: 0.2px solid black;
+                          border-color: #854d0d"
+                   cellspacing="0"
+                   width="100%"
+                   align="center"
+                   cellpadding="0">
+                <tr>
+                    <th colspan="2">Task -: {{ taskk.task.task_id }}</th>
+                </tr>
+                {% for shiftt in context.shift %}
+                    <tr style="border-top-style: dotted; border-color: rgb(71, 173, 84)">
+                        <td style="width: 5%">shift {{ forloop.counter }}</td>
+                        <td align="left">
+                            <table border="0" style="border-color: red">
+                                <tr>
+                                    {% if showimages %}
+                                        <th style="color: aliceblue">.</th>
+                                        {% for media in taskk.task|task_shift_pdf:shiftt|Media:context.date %}
+                                            <th>
+                                                {% if env == 'LOCAL' %}
+                                                    {% if linux_environment %}
+                                                        <img style="width: 80px;
+                                                                    height: 80px"
+                                                             src="{{ media.image.url|slice:'1:' }}"
+                                                             alt="pdf_sorry" />
+                                                    {% else %}
+                                                        <img style="width: 80px;
+                                                                    height: 80px"
+                                                             src="{{ media.image.path }}"
+                                                             alt="pdf_sorry" />
+                                                    {% endif %}
+                                                {% else %}
+                                                    <img style="width: 80px;
+                                                                height: 80px"
+                                                         src="{{ media.image.url }}"
+                                                         alt="pdf_sorry" />
+                                                {% endif %}
+                                                <p>{{ taskk.task.task_id }}{{ shiftt.shift_id }}{{ forloop.counter }}</p>
+                                            </th>
+                                        {% endfor %}
+                                    {% else %}
+                                        <th></th>
+                                    {% endif %}
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
+        {% for taskk in context.task_C %}
+            <table style="font-size: 0.7rem;
+                          border-spacing: 0;
+                          border-collapse: collapse;
+                          border-top: 0.2px solid black;
+                          border-color: #854d0d"
+                   cellspacing="0"
+                   width="100%"
+                   align="center"
+                   cellpadding="0">
+                <tr>
+                    <th colspan="2">Task -: {{ taskk.task.task_id }}</th>
+                </tr>
+                {% for shiftt in context.shift %}
+                    <tr style="border-top-style: dotted; border-color: rgb(71, 173, 84)">
+                        <td style="width: 5%">shift {{ forloop.counter }}</td>
+                        <td align="left">
+                            <table border="0" style="border-color: red">
+                                <tr>
+                                    <th style="color: aliceblue">.</th>
+                                    {% if showimages %}
+                                        {% for media in taskk.task|task_shift_pdf:shiftt|Media:context.date %}
+                                            <th>
+                                                {% if env == 'LOCAL' %}
+                                                    {% if linux_environment %}
+                                                        <img style="width: 80px;
+                                                                    height: 80px"
+                                                             src="{{ media.image.url|slice:'1:' }}"
+                                                             alt="pdf_sorry" />
+                                                    {% else %}
+                                                        <img style="width: 80px;
+                                                                    height: 80px"
+                                                             src="{{ media.image.path }}"
+                                                             alt="pdf_sorry" />
+                                                    {% endif %}
+                                                {% else %}
+                                                    <img style="width: 80px;
+                                                                height: 80px"
+                                                         src="{{ media.image.url }}"
+                                                         alt="pdf_sorry" />
+                                                {% endif %}
+                                                <p>{{ taskk.task.task_id }}{{ shiftt.shift_id }}{{ forloop.counter }}</p>
+                                            </th>
+                                        {% endfor %}
+                                    {% else %}
+                                        <th></th>
+                                    {% endif %}
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
+        <div>
+            <pdf:nextpage />
+        </div>
+    {% endfor %}
+{% endblock %}

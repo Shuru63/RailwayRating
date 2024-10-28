@@ -1,0 +1,331 @@
+{% load custom %}
+{% block body %}
+    <head>
+        <style>
+    .text-center {
+      font-size:large; 
+      color: #0040ff;
+    }
+    .score-colm {
+      font-size:large;
+      color: #0040ff;
+    }
+
+    .feedback-container-2 {
+      margin-left: auto;
+      margin-right: auto;
+      width: 85%;
+      border-radius: 10px;
+      background-color: #ffffff;
+      padding: 15px;
+      margin-top: 10px;
+      margin-bottom: 40px;
+      min-width: 800px;
+   }
+
+   .feedback-summary-table{
+    width: 100%;
+   }
+
+   .feedback-summary-table thead tr th,
+   .feedback-summary-table tbody tr td{
+    padding: 5px;
+    text-align: center;
+   }
+
+   .feedback-summary-signature{
+    width: 100%;
+    margin: 50px 0px;
+   }
+
+   .feedback-summary-signature tr td{
+    text-align: center;
+   }
+
+   .feedback-summary-header{
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+    margin: 50px auto;
+   }
+
+   .verify-summary-btn{
+    border-radius: 5px;
+   }
+
+   .modal-inputs{
+    padding: 5px;
+    width: 70%;
+    border-radius: 5px;
+   }
+        </style>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    </head>
+    <div id="feedback-summary-verification-modal"
+         class="modal"
+         tabindex="-1"
+         role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"
+                        style="font-size: 24px;
+                               text-transform: capitalize">Verify Feedback Summary</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div id="email-div">
+                            <input placeholder="Enter Email" class="modal-inputs" id="email-input" />
+                            <button class="btn btn-primary verify-summary-btn" id="email-btn">verify Email</button>
+                        </div>
+                        <div id="otp-div">
+                            <input placeholder="Enter Otp" class="modal-inputs" id="otp-input" />
+                            <button class="btn btn-primary verify-summary-btn" id="otp-btn">Submit Otp</button>
+                        </div>
+                        <div>
+                            <p id="success-error"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin: 0px; overflow-x: scroll;">
+        <div class="feedback-container-2">
+            <h4 class="feedback-summary-header">DAILY SHEET OF INSPECTION/USER FEEDBACK REGISTER</h4>
+            <table class="feedback-summary-table" border=".5">
+                <thead class="" style="font-size: 15px !important">
+                    <tr style="padding: 7px">
+                        <th scope="col" rowspan="1">Date</th>
+                        <th scope="col" rowspan="1">Inspection Feedback</th>
+                        <th scope="col" rowspan="1">
+                            No. Of Inspection/user
+                            <br />
+                            Feedbacks received
+                        </th>
+                        <th scope="col" rowspan="1">Inspection/use Feedback weightage</th>
+                        <th scope="col" rowspan="1">Scores</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="3" style="text-align: center;">{{ formatted_date }}</td>
+                        <td style="padding: 3px">Excellent</td>
+                        {% if excellent_count %}
+                            <td class="text-center">{{ excellent_count }}</td>
+                            <td>100%</td>
+                            <td class="score-colm">{{ scores.0 }}</td>
+                        {% else %}
+                            <td></td>
+                            <td>100%</td>
+                            <td></td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td style="padding: 3px">Ok</td>
+                        {% if ok_count %}
+                            <td class="text-center">{{ ok_count }}</td>
+                            <td>90%</td>
+                            <td class="score-colm">{{ scores.1 }}</td>
+                        {% else %}
+                            <td></td>
+                            <td>90%</td>
+                            <td></td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td style="padding: 3px">Poor</td>
+                        {% if poor_count %}
+                            <td class="text-center">{{ poor_count }}</td>
+                            <td>0%</td>
+                            <td class="score-colm">{{ scores.2 }}</td>
+                        {% else %}
+                            <td></td>
+                            <td>0%</td>
+                            <td></td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding: 1px; font-size: 13px">Total</td>
+                        <td class="text-center">{{ tot_count }}</td>
+                        <td></td>
+                        <td class="score-colm">{{ scores_sum }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="padding: 1px; font-size: 13px">
+                            Daily User/Inspection score achieved in Percentage = total
+                            scorex100/total no. of feedback
+                        </td>
+                        <td class="score-colm">{{ daily_per_total_score }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="feedback-summary-signature">
+                <tr>
+                    <td>
+                        <h6>Signature of Concerning /CHI/SSE/JE</h6>
+                    </td>
+                    <td>
+                        <h6>Signature of Contractor/Authorized Signatory of contractor</h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h6>(Buyer Representative)</h6>
+                    </td>
+                    <td>
+                        <h6>(User Representative)</h6>
+                    </td>
+                </tr>
+                <tr>
+                    {% if sup.name == "supervisor" or sup.name == "officer" or sup.name == "railway admin" %}
+                        {% if sup_summary_ver != True %}
+                            <script>console.log(`{{sup_summary_ver}}`)</script>
+                            <td>
+                                <button class="btn btn-primary verify-summary-btn"
+                                        data-toggle="modal"
+                                        data-target="#feedback-summary-verification-modal">Verify</button>
+                            </td>
+                        {% else %}
+                            <td>
+                                <button class="btn btn-success">Verified</button>
+                            </td>
+                        {% endif %}
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if sup.name == "contractor" %}
+                        {% if con_summary_ver != True %}
+                            <td>
+                                <button class="btn btn-primary verify-summary-btn"
+                                        data-toggle="modal"
+                                        data-target="#feedback-summary-verification-modal">Verify</button>
+                            </td>
+                        {% else %}
+                            <td>
+                                <button class="btn btn-success">Verified</button>
+                            </td>
+                        {% endif %}
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+    var emailDiv = document.getElementById("email-div")
+    var otpDiv = document.getElementById("otp-div")
+    var emailInput = document.getElementById("email-input")
+    var otpInput = document.getElementById("otp-input")
+    var emailBtn = document.getElementById("email-btn")
+    var otpBtn = document.getElementById("otp-btn")
+
+    otpDiv.style.display = "none"
+
+    emailBtn.addEventListener('click', function(e){
+      const email_input = emailInput.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailRegex.test(email_input)) {
+        console.log('Invalid email');
+        emailInput.classList.add('bg-red-100');
+        return;
+      }
+
+      const verificationData = {
+          email: email_input,
+      };
+
+      setCookie(
+        'verification_shift_data',
+        JSON.stringify(verificationData),
+        30
+      );
+
+      fetch('verify_signature_email', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}',
+        },
+        body: JSON.stringify({ email: email_input }),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === 'Email sent successfully, Please check your Email') {
+          showSuccess(data.message)
+          emailDiv.style.display = "none"
+          otpDiv.style.display = "block"
+        }
+        else{
+          showError(data.message)
+        }
+      })
+    })
+
+    
+    otpBtn.addEventListener('click', function(e){
+      confirm_otp = otpInput.value.trim()
+      const email_input = emailInput.value.trim();
+
+      const verificationData = {
+        otp: confirm_otp,
+      };
+
+      setCookie(
+        'verification_shift_data',
+        JSON.stringify(verificationData),
+        30
+      );
+
+      fetch('confirm_signature_email_feedback_summary', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}',
+        },
+        body: JSON.stringify({ 
+          otp: confirm_otp,
+          date: `{{feedback_date}}`,
+          email: email_input,
+        }),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === 'OTP Verified') {
+          showSuccess("Feedback summary verified successfully")
+          emailDiv.style.display = "block"
+          otpDiv.style.display = "none"
+          emailInput.style.readOnly = "readonly"
+          emailBtn.style.display = "none"
+        }
+        else{
+          showError(data.message)
+        }
+      })
+    })
+
+    function setCookie(name, value, minutes) {
+      const date = new Date();
+      date.setTime(date.getTime() + minutes * 60 * 1000);
+      const expires = 'expires=' + date.toUTCString();
+      document.cookie = name + '=' + value + ';' + expires + ';path=/';
+    }
+
+
+    function showError(message) {
+      document.getElementById("success-error").innerHTML = "<p class='alert alert-danger' style='font-size: 1rem;'>"+ message +"</p>"
+    }
+
+    function showSuccess(message) {
+      document.getElementById("success-error").innerHTML = "<p class='alert alert-success' style='font-size: 1rem;'>"+ message +"</p>"
+    }
+    </script>
+{% endblock %}

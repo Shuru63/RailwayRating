@@ -1,0 +1,14 @@
+[run]
+branch = True
+omit =
+    */migrations/*
+    */settings.py
+    manage.py
+    */static/*
+    __init__.py
+    */tests/*
+    logs
+    media/
+    env/
+
+

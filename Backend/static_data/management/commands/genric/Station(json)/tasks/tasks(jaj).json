@@ -1,0 +1,62 @@
+{
+    "task_1": {
+        "station": "JAJ",
+        "task_id": 1,
+        "task_type": "A",
+        "service_type": "Indoor Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of 1st Class Waiting Hall (1stfloor),2nd Class Waiting Hall (Ground floor),1st Class Waiting Hall (PF No. 2)",
+        "cleaning_cycle_days": "730",
+        "cleaning_cycle_type": "D",
+        "cleaning_cycle_day_freq": 2,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    },
+    "task_2": {
+        "station": "JAJ",
+        "task_id": 2,
+        "task_type": "A",
+        "service_type": "Indoor Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of Booking Counter Glass Area",
+        "cleaning_cycle_days": "365",
+        "cleaning_cycle_type": "A", 
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    },
+    "task_3": {
+        "station": "JAJ",
+        "task_id": 3,
+        "task_type": "A",
+        "service_type": "Outdoor Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of RRI Building, Station Building, RRI Campus, GRP Barrack, Officer Rest Room, Officer Rest Room Campus, Pahar Side, NPO Side, Road Area, Track of UP Main line, Track of VIP Siding (Up & Down), Track of North Side from PF no. 1 Track, Track of South Side from PF no. 4 Track, Water both at PF 1/2 & 3/4, Track of PF 1, 2, 3 & 4, Drain, Toilets & Urinal at PF 1 to 4,",
+        "cleaning_cycle_days": "730",
+        "cleaning_cycle_type": "D",
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    },
+    "task_4": {
+        "station": "JAJ",
+        "task_id": 4,
+        "task_type": "A",
+        "service_type": "Outdoor Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of FOB, PF Area – 01, 02, 03 & 04, Circulating Area",
+        "cleaning_cycle_days": "730",
+        "cleaning_cycle_type": "D",
+        "cleaning_cycle_day_freq": 2,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    },
+    "task_5": {
+        "station": "JAJ",
+        "task_id": 5,
+        "task_type": "A",
+        "service_type": "Outdoor Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of . Track of PF End to Home Signal (Down) Track of PF End to Home Signal (Up)",
+        "cleaning_cycle_days": "365",
+        "cleaning_cycle_type": "A",
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    }
+}

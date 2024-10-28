@@ -1,0 +1,589 @@
+{% load custom %}
+{% block body %}
+    <head>
+        <style>
+      .container{
+        display: flex; 
+        flex-direction: column; 
+        justify-content: start; 
+        align-items: start;
+      }
+      .container .table{
+        width: 100%;
+      }
+      .td{
+        padding-top: 1px; 
+        padding-left: 1;
+      }
+      .table table-bordered{
+       font-size: 0.7rem;
+       border-spacing: 0;
+        border-collapse: collapse;
+      }
+      .table-sections{
+      text-align: left;
+      padding-left: 12px;
+      padding-top: 1px;
+      font-size: 9px;
+      }
+      .rating-td {
+        padding-top: 4px; 
+        font-size: larger;  
+        text-align: right; 
+        text-decoration: underline; 
+        font-weight: bold;
+      }
+      .pax-td {
+        text-align: left; 
+        padding-left: 20px;
+      }
+      .taskk-td {
+        border-left: 0.5px solid black; 
+        height: 22.3px
+      }
+      .center-td {
+        padding-top: 3px; 
+        font-size: 9px;
+      }
+        </style>
+    </head>
+    
+    {% for context in context_list %}
+        <div class="container">
+            <h4 style="margin: 0px;">
+                <u><center>DAILY BUYER'S EVALUATION SHEET</center></u>
+            </h4>
+            <table class="table">
+                <tr style="width: 100%">
+                    <td style="width: 15%">
+                        <b>Name of work:</b>
+                    </td>
+                    <td colspan="2" class="td">
+                        <b>{{ station.name_of_work }}</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Cleaning Contract by:</b>
+                    </td>
+                    <td colspan="2" class="td">
+                        <b> {{ station.contract_by }}</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Contract No.:</b>
+                    </td>
+                    <td colspan="2" class="td">
+                        <b>{{ station.contract_no }}</b>
+                    </td>
+                </tr>
+                <tr colspan="3">
+                    <td style="padding-top: 4px;">
+                        <b>DATE: {{ context.formatted_date }}</b>
+                    </td>
+                    <td class="rating-td">Daily Buyer's rating</td>
+                    <td style="text-align: right;">
+                        <b>Download Date: {{ 1|Today_date }}</b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="table-responsive container-fluid">
+            <table id="table"
+                class="table table-bordered"
+                style="font-size: 0.7rem;
+                        border-spacing: 0;
+                        border-collapse: collapse"
+                cellspacing="0"
+                width="100%"
+                align="center"
+                border=".5"
+                cellpadding="0">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th scope="col" rowspan="3" style="width: 2%">S No.</th>
+                        <th scope="col" rowspan="3" style="width: 35%">Description</th>
+                        <th scope="col" rowspan="3">Type Of Services</th>
+                        <th scope="col" rowspan="3" style="width: 5%">
+                            Cleaning Cycles
+                            <br />
+                            (days)
+                            <br />
+                            in 02
+                            <br />
+                            years
+                        </th>
+                        <th scope="col" rowspan="3" style="width: 6%; writing-mode: vertical-lr">cycle</th>
+                        <th scope="col" rowspan="3" style="width: 6%">
+                            Cleaning Frequency
+                            <br />
+                            per
+                            <br />
+                            cycle (day)
+                        </th>
+                        <th scope="col" rowspan="1" style="width: 6%;">I</th>
+                        <th scope="col" rowspan="1" style="width: 6%">II</th>
+                        <th scope="col" rowspan="1" style="width: 6%">III</th>
+                        <th scope="col" rowspan="1" style="width: 6%">IV</th>
+                        <th scope="col" rowspan="1" style="width: 6%">V</th>
+                        <th scope="col" rowspan="1" style="width: 6%">VI</th>
+                        {% if station.station_name == "KIUL" %}
+                        <th rowspan="3">Remarks</th>
+                        {% endif %}
+                        
+                    </tr>
+                    <tr>
+                        <th scope="col" rowspan="2" style="width: 5%">
+                            Max.
+                            <br />
+                            Buyer's
+                            <br />
+                            Rating
+                        </th>
+                        <th scope="col" rowspan="2">
+                            Activity wise
+                            <br />
+                            max rating
+                            <br />
+                            for the
+                            <br />
+                            day = 4xClg freq.
+                        </th>
+                        <th colspan="3">
+                            <center>Buyer's Rating</center>
+                        </th>
+                        {% if station.station_name == "KIUL" %}
+                        <th scope="col" rowspan="2">Buyer's Average Rating in % (activity wise)</th>
+                        {% else %}
+                        <th scope="col" rowspan="2">Sum of Buyer's rating for the the day</th>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <th>
+                            <center>
+                                <h6>22-06 Hrs</h6>
+                            </center>
+                        </th>
+                        <th>
+                            <center>
+                                <h6>06-14 Hrs</h6>
+                            </center>
+                        </th>
+                        <th>
+                            <center>
+                                <h6>14-22 Hrs</h6>
+                            </center>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <center>
+                                <h6>::</h6>
+                            </center>
+                        </td>
+                        <td class="pax-td" colspan="7">
+                            <b> Number of Employee deployed</b>
+                        </td>
+                        <td class="pax-td1">{{ pax.2 }}</td>
+                        <td class="pax-td1">{{ pax.0 }}</td>
+                        <td class="pax-td1">{{ pax.1 }}</td>
+                    </tr>
+                    <tr>
+                        <td class="center-td" style="text-align: left;">
+                            <center>
+                                <h6>A</h6>
+                            </center>
+                        </td>
+                        <td class="table-sections" colspan="11">
+                            <b>
+                                <h6>Cleaning, Sanitation and Disinfection services of</h6>
+                            </b>
+                        </td>
+                        {% if station.station_name == "KIUL" %}
+                        <td rowspan='21'></td>
+                        {% endif %}
+                    </tr>
+                    {% for taskk , occurrence_list1 in context.task_A|zip:context.occurrence_list_A %}
+                        <tr>
+                            <td>
+                                <center>{{ forloop.counter }}</center>
+                            </td>
+                            <td>
+                                <center>
+                                    <div style="padding-top:1px">
+                                        <b>{{ taskk.task.task_description }} </b>
+                                    </div>
+                                </center>
+                            </td>
+                            <td>
+                                <center>{{ taskk.task.service_type }}</center>
+                            </td>
+                            <td>
+                                <center>{{ taskk.task.cleaning_cycle_days }}</center>
+                            </td>
+                            <td>
+                                <center>{{ taskk.task.get_cleaning_cycle_type_display }}</center>
+                            </td>
+                            <td>
+                                <center>{{ taskk.task.cleaning_cycle_day_freq }}</center>
+                            </td>
+                            <td>
+                                <center>{{ 4 }}</center>
+                            </td>
+                            
+                            <td>
+                                <center>{{ taskk.max_ratings }}</center>
+                            </td>
+                            {% for shiftt,x in context.shift|zip2:occurrence_list1 %}
+                                <td>
+                                    <table id="table"
+                                        class="table table-bordered"
+                                        cellspacing="0"
+                                        width="100%"
+                                        align="center"
+                                        cellpadding="0">
+                                        <tr>
+                                            {% if x|Check_str_int %}
+                                                <td style="font-size: 1rem">
+                                                    <center>
+                                                        <h2>{{ x }}</h2>
+                                                    </center>
+                                                </td>
+                                            {% else %}
+                                                {% for i in x|range %}
+                                                    {% if taskk.task.id|valid_task_date:context.date %}
+                                                        <td class="taskk-td">
+                                                            <center>
+                                                                <p>
+                                                                    <a class="m-1 btn btn-primary btn-sm"
+                                                                    style="text-decoration: none"
+                                                                    href="">
+                                                                    {{ taskk.task|taskShift:shiftt|task_shift:forloop.counter|rating_pdf:context.date }}</a>
+                                                                </p>
+                                                            </center>
+                                                        </td>
+                                                    {% else %}
+                                                        <td>
+                                                            <p>Not a valid date</p>
+                                                        </td>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            {% endfor %}
+                            <td>
+                                <center>{{ taskk.sum }}</center>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td class="center-td">
+                            <center>
+                                <h6>B</h6>
+                            </center>
+                        </td>
+                        <td class="table-sections" colspan="11">
+                            <b>
+                                <h6>Disinfection</h6>
+                            </b>
+                        </td>
+                    </tr>
+                    {% for taskk , occurrence_list1 in context.task_B|zip:context.occurrence_list_B %}
+                        <tr>
+                            <td>
+                                <center>{{ forloop.counter }}</center>
+                            </td>
+                            <td>
+                                <center>
+                                    <div style="padding-top: 1px">
+                                        <b>{{ taskk.task.task_description }}</b>
+                                    </div>
+                                </center>
+                            </td>
+                            <td>
+                                <center>{{ taskk.task.service_type }}</center>
+                            </td>
+                            <td>
+                                <center>{{ taskk.task.cleaning_cycle_days }}</center>
+                            </td>
+                            <td>
+                                <center>{{ taskk.task.get_cleaning_cycle_type_display }}</center>
+                            </td>
+                            <td>
+                                <center>{{ taskk.task.cleaning_cycle_day_freq }}</center>
+                            </td>
+                            <td>
+                                <center>{{ 4 }}</center>
+                            </td>
+                            <td>
+                                <center>{{ taskk.max_ratings }}</center>
+                            </td>
+                            {% for shiftt,x in context.shift|zip2:occurrence_list1 %}
+                                <td>
+                                    <table id="table"
+                                        class="table table-bordered"
+                                        cellspacing="0"
+                                        width="100%"
+                                        align="center"
+                                        cellpadding="0">
+                                        <tr>
+                                            {% if x|Check_str_int %}
+                                                <td style="font-size: 1rem">
+                                                    <center>
+                                                        <h2>{{ x }}</h2>
+                                                    </center>
+                                                </td>
+                                            {% else %}
+                                                {% for i in x|range %}
+                                                    {% if taskk.task.id|valid_task_date:context.date %}
+                                                        <td class="taskk-td">
+                                                            <center>
+                                                                <p>
+                                                                    <a class="m-1 btn btn-primary btn-sm"
+                                                                    style="text-decoration : none"
+                                                                    href="">
+                                                                    {{ taskk.task|taskShift:shiftt|task_shift:forloop.counter|rating_pdf:context.date }}</a>
+                                                                </p>
+                                                            </center>
+                                                        </td>
+                                                    {% else %}
+                                                        <td>
+                                                            <p>Not a valid date</p>
+                                                        </td>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            {% endfor %}
+                            <td>
+                                <center>{{ taskk.sum }}</center>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td class="center-td">
+                            <center>
+                                <h6>C</h6>
+                            </center>
+                        </td>
+                        <td class="table-sections" colspan="11">
+                            <b>
+                                <h6>
+                                    Collection and Disposal of Garbage waste management service for
+                                    730 days (02 Years)
+                                </h6>
+                            </b>
+                        </td>
+                    </tr>
+                    {% for taskk , occurrence_list1 in context.task_C|zip:context.occurrence_list_C %}
+                        <tr>
+                            <td>
+                                <center>{{ forloop.counter }}</center>
+                            </td>
+                            <td>
+                                <center>
+                                    <div style="padding-top: 1px">
+                                        <b>{{ taskk.task.task_description }} </b>
+                                    </div>
+                                </center>
+                            </td>
+                            <td>
+                                <center>{{ taskk.task.service_type }}</center>
+                            </td>
+                            <td>
+                                <center>{{ taskk.task.cleaning_cycle_days }}</center>
+                            </td>
+                            <td>
+                                <center>{{ taskk.task.get_cleaning_cycle_type_display }}</center>
+                            </td>
+                            <td>
+                                <center>{{ taskk.task.cleaning_cycle_day_freq }}</center>
+                            </td>
+                            <td>
+                                <center>{{ 4 }}</center>
+                            </td>
+                            <td>
+                                <center>{{ taskk.max_ratings }}</center>
+                            </td>
+                            {% for shiftt,x in context.shift|zip2:occurrence_list1 %}
+                                <td>
+                                    <table id="table"
+                                        class="table table-bordered"
+                                        cellspacing="0"
+                                        width="100%"
+                                        align="center"
+                                        cellpadding="0">
+                                        <tr>
+                                            {% if x|Check_str_int %}
+                                                <td style="font-size: 1rem">
+                                                    <center>
+                                                        <h2>{{ x }}</h2>
+                                                    </center>
+                                                </td>
+                                            {% else %}
+                                                {% for i in x|range %}
+                                                    {% if taskk.task.id|valid_task_date:context.date %}
+                                                        <td class="taskk-td">
+                                                            <center>
+                                                                <p>
+                                                                    <a class="m-1 btn btn-primary btn-sm"
+                                                                    style="text-decoration: none"
+                                                                    href="">
+                                                                    {{ taskk.task|taskShift:shiftt|task_shift:forloop.counter|rating_pdf:context.date }}</a>
+                                                                </p>
+                                                            </center>
+                                                        </td>
+                                                    {% else %}
+                                                        <td>
+                                                            <p>Not a valid date</p>
+                                                        </td>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            {% endfor %}
+                            <td>
+                                <center>{{ taskk.sum }}</center>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="7">
+                            <center>Total</center>
+                        </td>
+                        <td colspan="1">
+                            <center>{{ context.max_rating }}</center>
+                        </td>
+                        <td colspan="3">
+                            <center></center>
+                        </td>
+                        <td colspan="1">
+                            <center>{{ context.rating_sum_all }}</center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="11">
+                            <center>
+                                Buyer's daily average rating in percentage = Total in column VIx100 / Total in Column II
+                            </center>
+                        </td>
+                        <td>
+                            <center>{{ context.percentage }} %</center>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            {% if station.station_name == "PNBE" %}
+            <table style="width: 100%; margin-top: 1px">
+                <tr style="width: 100%">
+                    <td style="font-weight: 600; font-size: 9px; width: 30%;">1. Signature of CHI/SSE/JE (shift 6-14)</td>
+                    <td style=" color: green; width: 22.5%;">
+                        {% for verified_shift in context.verified_shifts %}
+                            {% with verified_shift.verified_by as verified_by %}
+                                {% if verified_by.user_type.name == "supervisor" and verified_shift.shift.shift_id == 1 %}
+                                    verified by {{ verified_by.username }}
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </td>
+                    <td style="font-weight: 600; font-size: 9px; width: 30%;">1. Signature of Contractor/Authorized Signatory</td>
+                    <td style="color: green; width: 22.5%;">
+                        {% for verified_shift in context.verified_shifts %}
+                            {% with verified_shift.verified_by as verified_by %}
+                                {% if verified_by.user_type.name == "contractor" and verified_shift.shift.shift_id == 1 %}
+                                    verified by {{ verified_by.username }}
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600; font-size: 9px;">2. Signature of CHI/SSE/JE (shift 14-22)</td>
+                    <td style="color: green;">
+                        {% for verified_shift in context.verified_shifts %}
+                            {% with verified_shift.verified_by as verified_by %}
+                                {% if verified_by.user_type.name == "supervisor" and verified_shift.shift.shift_id == 2 %}
+                                    verified by {{ verified_by.username }}
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </td>
+                    <td style="font-weight: 600; font-size: 9px; width: 30%;">2. Signature of Contractor/Authorized Signatory</td>
+                    <td style="color: green;">
+                        {% for verified_shift in context.verified_shifts %}
+                            {% with verified_shift.verified_by as verified_by %}
+                                {% if verified_by.user_type.name == "contractor" and verified_shift.shift.shift_id == 2 %}
+                                    verified by {{ verified_by.username }}
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600; font-size: 9px;">3. Signature of CHI/SSE/JE (shift 22-6)</td>
+                    <td style="color: green;">
+                        {% for verified_shift in context.verified_shifts %}
+                            {% with verified_shift.verified_by as verified_by %}
+                                {% if verified_by.user_type.name == "supervisor" and verified_shift.shift.shift_id == 3 %}
+                                    verified by {{ verified_by.username }}
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </td>
+                    <td style="font-weight: 600; font-size: 9px; width: 30%;">3. Signature of Contractor/Authorized Signatory</td>
+                    <td style="color: green;">
+                        {% for verified_shift in context.verified_shifts %}
+                            {% with verified_shift.verified_by as verified_by %}
+                                {% if verified_by.user_type.name == "contractor" and verified_shift.shift.shift_id == 3 %}
+                                    verified by {{ verified_by.username }}
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+            {% else %}
+            <table style="width: 100%; margin-top:50px">
+                <tr style="width: 100%">
+                    <td style="font-weight: 600; font-size: 9px; width: 30%;"> Signature of CHI/SSE/JE (shift 6-14)</td>
+                    <td style=" color: green; width: 22.5%;">
+                        {% for verified_shift in verified_shifts %}
+                            {% with verified_shift.verified_by as verified_by %}
+                                {% if verified_by.user_type.name == "supervisor" %}
+                                    verified by {{ verified_by.username }}
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </td>
+                    <td style="font-weight: 600; font-size: 9px; width: 30%;"> Signature of Contractor/Authorized Signatory</td>
+                    <td style="color: green; width: 22.5%;">
+                        {% for verified_shift in verified_shifts %}
+                            {% with verified_shift.verified_by as verified_by %}
+                                {% if verified_by.user_type.name == "contractor"%}
+                                    verified by {{ verified_by.username }}
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+            {% endif %}
+        </div>
+        <div>
+            <pdf:nextpage />
+        </div>
+    {% endfor %}
+
+{% endblock %}

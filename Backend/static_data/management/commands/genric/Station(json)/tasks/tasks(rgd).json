@@ -1,0 +1,39 @@
+{
+    "task_1": {
+        "station": "RGD",
+        "task_id": 1,
+        "task_type": "A",
+        "service_type": "Indoor Area",
+        "task_description": "General Cleaning {sweeping, mopping0 (where required) Dusting} of All Office Area of PF, PRS Hall, VIP & SM Chamber, 2nd Class Waiting Hall & Booking Office, Toilet & Urinal Area",
+        "cleaning_cycle_days": "730",
+        "cleaning_cycle_type": "D",
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    },
+    "task_2": {
+        "station": "RGD",
+        "task_id": 2,
+        "task_type": "A",
+        "service_type": "Outdoor Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of Circulating Area, PF Area, Track Area, Drain, Water booth, FOB",
+        "cleaning_cycle_days": "730",
+        "cleaning_cycle_type": "D", 
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    },
+    "task_3": {
+        "station": "RGD",
+        "task_id": 3,
+        "task_type": "A",
+        "service_type": "Outdoor Area",
+        "task_description": "General Cleaning {sweeping, mopping (where required) Dusting} of Track from PF End to Home signal (Both End)",
+        "cleaning_cycle_days": "365",
+        "cleaning_cycle_type": "A",
+        "cleaning_cycle_day_freq": 1,
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    }
+
+}

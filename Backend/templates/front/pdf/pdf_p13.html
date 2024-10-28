@@ -1,0 +1,253 @@
+{% load custom %}
+{% block body %}
+    <head>
+        <style>
+    .InspecTable {
+      border-spacing: 0; 
+      border-collapse: collapse; 
+      margin-top: 28px; 
+      margin-bottom: 14px;
+    }
+    .text-center {
+      font-size:large; 
+      color: #0040ff;
+    }
+    .score-colm {
+      font-size:large;
+      color: #0040ff;
+    }
+    .Signature-table{
+      margin-top: 100px;
+      width: 100%;
+      text-align: center;
+    }
+        </style>
+    </head>
+    <div>
+        <center>
+            <h1>
+                <u>DAILY SHEET OF INSPECTION/USER FEEDBACK REGISTER</u>
+            </h1>
+        </center>
+        <table style="width: 100%">
+            <tr style="width: 100%">
+                <td style="width: 15%">
+                    <b>Name of work:</b>
+                </td>
+                <td style="width: 85%">
+                    <b>{{ station.name_of_work }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Cleaning Contract by:</b>
+                </td>
+                <td>
+                    <b> {{ station.contract_by }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Contract No.:</b>
+                </td>
+                <td>
+                    <b>{{ station.contract_no }}</b>
+                </td>
+            </tr>
+        </table>
+        <table id="table" class="InspecTable" style="" border=".5">
+            <thead class="bg-dark text-white" style="font-size: 15px !important">
+                <tr style="padding: 7px">
+                    <th scope="col" rowspan="1">Date</th>
+                    <th scope="col" rowspan="1">Inspection Feedback</th>
+                    <th scope="col" rowspan="1">
+                        No. Of Inspection/User
+                        <br />
+                        Feedbacks received
+                    </th>
+                    <th scope="col" rowspan="1">Inspection/User Feedback weightage</th>
+                    <th scope="col" rowspan="1">Scores</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="3" style="text-align: center;">{{ formatted_date }}</td>
+                    <td style="padding: 3px">
+                        <center>Excellent</center>
+                    </td>
+                    {% if excellent_count %}
+                        <td class="text-center">
+                            <center> {{ excellent_count }}</center>
+                        </td>
+                        <td>
+                            <center>100%</center>
+                        </td>
+                        <td class="score-colm">
+                            <center>{{ scores.0 }}</center>
+                        </td>
+                    {% else %}
+                        <td class="text-center">
+                            <center> 0</center>
+                        </td>
+                            <td>
+                            <center>100%</center>
+                        </td>
+                        <td class="text-center">
+                            <center> 0</center>
+                        </td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td style="padding: 3px">
+                        <center>Ok</center>
+                    </td>
+                    {% if ok_count %}
+                        <td class="text-center">
+                            <center> {{ ok_count }}</center>
+                        </td>
+                        <td>
+                            <center>90%</center>
+                        </td>
+                        <td class="score-colm">
+                            <center>{{ scores.1 }}</center>
+                        </td>
+                    {% else %}
+                        <td class="text-center">
+                            <center> 0</center>
+                        </td>
+                        <td>
+                            <center>90%</center>
+                        </td>
+                        <td class="text-center">
+                            <center> 0</center>
+                        </td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td style="padding: 3px">
+                        <center>Poor</center>
+                    </td>
+                    {% if poor_count %}
+                        <td class="text-center">
+                            <center> {{ poor_count }}</center>
+                        </td>
+                        <td>
+                            <center>0%</center>
+                        </td>
+                        <td class="score-colm">
+                            <center>{{ scores.2 }}</center>
+                        </td>
+                    {% else %}
+                        <td class="text-center">
+                            <center> 0</center>
+                        </td>
+                        <td>
+                            <center>0%</center>
+                        </td>
+                        <td class="text-center">
+                            <center> 0</center>
+                        </td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td colspan="2" style="padding: 1px; font-size: 13px">
+                        <center>Total</center>
+                    </td>
+                    <td class="text-center">
+                        <center>{{ tot_count }}</center>
+                    </td>
+                    <td></td>
+                    <td class="score-colm">
+                        <center>{{ scores_sum }}</center>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="padding: 1px; font-size: 13px">
+                        Daily User/Inspection score achieved in Percentage = total
+                        scorex100/total no. of feedback
+                    </td>
+                    <td class="score-colm">
+                        <center>{{ daily_per_total_score }}</center>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="Signature-table">
+            <tr>
+                <td>
+                    <h2>Signature of Concerning /CHI/SSE/JE</h2>
+                </td>
+                <td>
+                    <h2>Signature of Contractor/Authorized Signatory of contractor</h2>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2 style="margin-left: 40px">(Buyer Representative)</h2>
+                </td>
+                <td>
+                    <h2>(User Representative)</h2>
+                </td>
+            </tr>
+            <tr>
+                <!-- {% if sup_summary_ver.verification_status %}
+                    <td style="color: green; font-size: 13px;">verified by {{ sup_summary_ver.verified_by.username }}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+                {% if con_summary_ver.verification_status %}
+                    <td style="color: green; font-size: 13px;">verified by {{ con_summary_ver.verified_by.username }}</td>
+                {% else %}
+                    <td></td>
+                {% endif %} -->
+
+                {% if station.station_category == "A" or station.station_category == "A1" %}
+                    <td style="color: green; font-size: 13px;">
+                        {% for verified_shift in verified_shifts %}
+                            {% with verified_shift.verified_by as verified_by %}
+                                {% if verified_by.user_type.name == "supervisor" and verified_shift.shift.shift_id == 2 %}
+                                    verified by {{ verified_by.username }}
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </td>
+
+                    <td style="color: green; font-size: 13px;">
+                        {% for verified_shift in verified_shifts %}
+                            {% with verified_shift.verified_by as verified_by %}
+                                {% if verified_by.user_type.name == "contractor" and verified_shift.shift.shift_id == 2 %}
+                                    verified by {{ verified_by.username }}
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </td>
+                {% else %}
+                    <td style=" color: green; font-size: 13px;">
+                        {% for verified_shift in verified_shifts %}
+                            {% with verified_shift.verified_by as verified_by %}
+                                {% if verified_by.user_type.name == "supervisor" or verified_by.user_type.name == "chi_sm" %}
+                                    {% if verified_shift.shift.shift_id == 1 or verified_shift.shift.shift_id == 0 %}
+                                        verified by {{ verified_by.username }}
+                                    {% endif %}
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </td>
+
+                    <td style="color: green; font-size: 13px;">
+                        {% for verified_shift in verified_shifts %}
+                            {% with verified_shift.verified_by as verified_by %}
+                                {% if verified_by.user_type.name == "contractor" %}
+                                    {% if verified_shift.shift.shift_id == 1 or verified_shift.shift.shift_id == 0 %}
+                                        verified by {{ verified_by.username }}
+                                    {% endif %}
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </td>
+                {% endif %}
+
+            </tr>
+        </table>
+    </div>
+{% endblock %}

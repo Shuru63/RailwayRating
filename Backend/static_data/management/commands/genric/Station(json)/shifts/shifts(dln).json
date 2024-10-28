@@ -1,0 +1,10 @@
+{
+    "shift":{
+        "shift_id": "1",
+        "start_time": "06:00:00",
+        "end_time": "14:00:00",
+        "station": "DLN",
+        "created_by": "Admin",
+        "updated_by": "Admin"
+    }
+}
